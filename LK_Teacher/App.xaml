@@ -1,0 +1,18 @@
+﻿<Application x:Class="LK_Teacher.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:LK_Teacher"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Templates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="FontAwesome">/Assets/Fonts/FontAwesome.otf#Font Awesome 5 Free Solid</FontFamily>
+            <FontFamily x:Key="RobotoRegular">/Assets/Fonts/Roboto-Regular.ttf#Roboto Regular</FontFamily>
+            <FontFamily x:Key="RobotoBold">/Assets/Fonts/Roboto-Bold.ttf#Roboto Bold</FontFamily>
+
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>
