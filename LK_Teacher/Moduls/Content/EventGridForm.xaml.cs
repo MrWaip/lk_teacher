@@ -54,7 +54,9 @@ namespace LK_Teacher.Moduls.Content
 
         public IEventItem GetEventItem(DateTime today, int NumberOfClass)
         {
-            throw new NotImplementedException();
+
+
+            return null;
             //Доделать отображение текущего события
         }
 
