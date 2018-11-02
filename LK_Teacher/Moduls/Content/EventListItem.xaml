@@ -19,8 +19,8 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label x:Name="labTag" Margin="0" FontFamily="/LK_Teacher;component/Assets/Fonts/#Font Awesome 5 Free Regular" FontSize="22" VerticalContentAlignment="Center" Grid.RowSpan="2"/>
-            <Border BorderBrush="#FF2C364D" BorderThickness="0,0,0,1" Grid.Column="1" Margin="10,0" VerticalAlignment="Bottom" Height="18" Grid.RowSpan="2">
-                <TextBlock x:Name="tblTitle" TextWrapping="Wrap" Text="пусто" VerticalAlignment="Bottom" Foreground="#FF2C364D" FontFamily="/LK_Teacher;component/Assets/Fonts/#Roboto" FontSize="14"/>
+            <Border x:Name="bgTitle" BorderThickness="0,0,0,1" Grid.Column="1" Margin="10,0" VerticalAlignment="Bottom" Height="18" Grid.RowSpan="2">
+                <TextBlock x:Name="tblTitle" TextWrapping="Wrap" Text="пусто" VerticalAlignment="Bottom" FontFamily="/LK_Teacher;component/Assets/Fonts/#Roboto" FontSize="14"/>
             </Border>
             <Button x:Name="btAction" HorizontalContentAlignment="Center" FontFamily="/LK_Teacher;component/Assets/Fonts/#Font Awesome 5 Free Regular" FontSize="22" BorderBrush="{x:Null}" Background="{x:Null}"  Grid.Column="2" Padding="5" Grid.RowSpan="2" />
             <Label x:Name="lbDate" Content="25.03.12" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Panel.ZIndex="1000" RenderTransformOrigin="0.507,0.53" FontFamily="/LK_Teacher;component/Assets/Fonts/#Roboto" Padding="0" Foreground="#FFADB5BD"/>

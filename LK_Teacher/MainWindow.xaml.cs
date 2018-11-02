@@ -33,6 +33,12 @@ namespace LK_Teacher
         //Время текущуго события
         private TimeSpan CurrentTimeOfClass;
 
+        private bool ActiveMode = false;
+
+        public delegate void ActiveEventHandler(DateTime dayEvent);
+
+        public event ActiveEventHandler TurnOnOff;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -56,7 +62,7 @@ namespace LK_Teacher
             //Задаем таймер
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Interval = new TimeSpan(500);
             TimerUpdater();
             dispatcherTimer.Start();
 
@@ -71,30 +77,38 @@ namespace LK_Teacher
         {
             if (DateTime.Today.DayOfWeek != DayOfWeek.Saturday &&
                 DateTime.Today.DayOfWeek != DayOfWeek.Sunday &&
-                DateTime.Now <= UtilityApi.LastTimeOfClassToday()
+                DateTime.Now <= UtilityApi.LastTimeOfClassToday().Add(UtilityApi.EndLastClass)
                 )
             {
-                labClockTitle.Content = "До конца события:";
-
-                if (CurrentTimeOfClass.Add(new TimeSpan(1, 30, 0)) <= DateTime.Now.TimeOfDay)
+                if (CurrentTimeOfClass.TotalMinutes == 0)
                 {
-                    if (CurrentTimeOfClass != new TimeSpan(0, 0, 0))
-                        labClockTitle.Content = "Перерыв";
                     CurrentTimeOfClass = UtilityApi.TimeOfCurrentClass();
-                    lbClock.Visibility = Visibility.Collapsed;
-                    labTimeToEnd.Visibility = Visibility.Collapsed;
                 }
-                else
+
+                if (TurnOnOff != null)
+                {
+                    TurnOnOff(DateTime.Today.Add(CurrentTimeOfClass));
+                }
+
+                if (CurrentTimeOfClass.TotalMinutes != 0)
                 {
                     labClockTitle.Content = "До конца события:";
                     lbClock.Visibility = Visibility.Visible;
                     labTimeToEnd.Visibility = Visibility.Visible;
-                    TimeSpan toEndClass = CurrentTimeOfClass.Add(new TimeSpan(1, 30, 0)) - DateTime.Now.TimeOfDay;
-                    if (toEndClass == new TimeSpan(0, 0, 0))
-                    {
-                        Console.WriteLine("Пара закончена");
-                    }
+                    TimeSpan toEndClass = CurrentTimeOfClass.Add(UtilityApi.DurationClass) - DateTime.Now.TimeOfDay;
                     labTimeToEnd.Content = toEndClass.ToString(@"hh\:mm\:ss");
+                    if (toEndClass.TotalSeconds <= 0)
+                    {
+                        CurrentTimeOfClass = new TimeSpan();
+                    }
+                }
+
+                if (CurrentTimeOfClass.TotalMinutes == 0)
+                {
+                    labClockTitle.Content = "Перерыв";
+                    CurrentTimeOfClass = UtilityApi.TimeOfCurrentClass();
+                    lbClock.Visibility = Visibility.Collapsed;
+                    labTimeToEnd.Visibility = Visibility.Collapsed;
                 }
             }
             else

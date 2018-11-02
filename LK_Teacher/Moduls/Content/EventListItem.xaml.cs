@@ -88,15 +88,46 @@ namespace LK_Teacher.Moduls
             DayOfEvent = dayEvent;
             DayOfEvent = DayOfEvent.Add(UtilityApi.TimeOfClasses[Row]);
 
+            ParentWindow.TurnOnOff += TurnOnOffHandler;
+
             this.Resources = new ResourceDictionary() { Source = new Uri("pack://application:,,,/Assets/Styles/StyleEventList.xaml") };
 
             Initialize();
+        }
+
+        private void TurnOnOffHandler(DateTime dayEvent)
+        {
+            if (dayEvent == DayOfEvent)
+            {
+                if (DayOfEvent.Add(UtilityApi.DurationClass) >= DateTime.Now)
+                {
+                    Style st = (Style)this.TryFindResource("ActiveMode");
+                    labTag.Style = (Style)this.TryFindResource("EventNow");
+                    bgTitle.Style = st;
+                }
+                else
+                {
+                    Style st = (Style)this.TryFindResource("NoMode");
+                    
+                    if (TypeOfEvent == -1)
+                    {
+                        labTag.Style = (Style)this.TryFindResource("DisComplete");
+                    }
+                    else
+                    {
+                        labTag.Style = (Style)this.TryFindResource("Complete");
+                    }
+                    bgTitle.Style = st;
+                }
+            }
         }
 
         public void Initialize()
         {
             btAction.Tag = this;
             lbDate.Content = DayOfEvent.ToString("HH:mm") + " - " + DayOfEvent.Add(new TimeSpan(1, 30, 0)).ToString("HH:mm");
+
+            bgTitle.Style = (Style)this.TryFindResource("NoMode");
 
             if (Api.IsConnection)
             {

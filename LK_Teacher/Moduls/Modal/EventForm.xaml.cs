@@ -1,4 +1,5 @@
 ﻿using LK_Teacher.Moduls;
+using System;
 using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,8 +48,16 @@ namespace LK_Teacher.Assets
                 eventGridItem.IdEvent = -1;
                 eventGridItem.TypeOfEvent = -1;
                 eventGridItem.btAction.RemoveHandler(Button.ClickEvent, (RoutedEventHandler)eventGridItem.EventButtonClick);
-                eventGridItem.btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(eventGridItem.PlusButtonClick));
-                string nameStyleClass = "PlusButton";
+                string nameStyleClass;
+                if (eventGridItem.DayOfEvent >= DateTime.Now)
+                {
+                    eventGridItem.btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(eventGridItem.PlusButtonClick));
+                    nameStyleClass = "PlusButton";
+                }
+                else nameStyleClass = "Disable";
+
+
+
                 eventGridItem.btAction.Style = (Style)eventGridItem.TryFindResource(nameStyleClass);
                 eventGridItem.tblTitle.Text = "пусто";
                 this.Visibility = Visibility.Hidden; 

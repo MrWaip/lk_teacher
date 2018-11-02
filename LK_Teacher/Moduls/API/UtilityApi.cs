@@ -11,6 +11,12 @@ namespace LK_Teacher.Moduls.API
 
         public static TimeSpan[] TimeOfClasses = { new TimeSpan(8, 30, 0), new TimeSpan(10, 10, 0), new TimeSpan(12, 10, 0), new TimeSpan(13, 50, 0), new TimeSpan(15, 50, 0), new TimeSpan(17, 30, 0) };
 
+        //public static TimeSpan[] TimeOfClasses = { new TimeSpan(19, 8, 0) };
+
+        public static readonly TimeSpan DurationClass = new TimeSpan(1,30,0);
+
+        public static readonly TimeSpan EndLastClass = new TimeSpan(1, 30, 1);
+
         public static string DayOfWeekToday()
         {
             return DayOfWeek(DateTime.Today);
@@ -68,7 +74,7 @@ namespace LK_Teacher.Moduls.API
         {
             foreach (TimeSpan ts in TimeOfClasses)
             {
-                if (DateTime.Now.TimeOfDay >= ts && DateTime.Now.TimeOfDay <= ts.Add(new TimeSpan(1,30,0)))
+                if (DateTime.Now.TimeOfDay >= ts && DateTime.Now.TimeOfDay <= ts.Add(DurationClass))
                 {
                     return ts;
                 }

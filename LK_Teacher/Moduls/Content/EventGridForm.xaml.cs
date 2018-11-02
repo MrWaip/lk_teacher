@@ -19,7 +19,7 @@ namespace LK_Teacher.Moduls.Content
     /// <summary>
     /// Логика взаимодействия для GridEventForm.xaml
     /// </summary>
-    public partial class EventGridForm : UserControl, IEventForm
+    public partial class EventGridForm : UserControl
     {
         //Константы
         readonly int Row;
@@ -52,14 +52,6 @@ namespace LK_Teacher.Moduls.Content
             
         }
 
-        public IEventItem GetEventItem(DateTime today, int NumberOfClass)
-        {
-
-
-            return null;
-            //Доделать отображение текущего события
-        }
-
         public void InitializeContent(DateTime monday)
         {
             //Сохраняем понедельник
@@ -72,6 +64,7 @@ namespace LK_Teacher.Moduls.Content
             tblMetaInfo.Text = $"РАСПИСАНИЕ НА {monday.ToString("dd/MM/yyyy")} - {monday.AddDays(6).ToString("dd/MM/yyyy")} - МЕСЯЦ";
 
             //Инициализация EventGridItem
+
             for (int i = 0; i < WorkWeek; i++)
             {
                 var button = new Button();

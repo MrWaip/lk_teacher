@@ -8,6 +8,6 @@ namespace LK_Teacher.Moduls.Content
 {
     interface IEventForm
     {
-        IEventItem GetEventItem(DateTime today, int NumberOfClass);
+        IEventItem GetEventItem(TimeSpan timeOffset);
     }
 }

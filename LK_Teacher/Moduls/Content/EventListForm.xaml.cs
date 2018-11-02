@@ -19,7 +19,7 @@ namespace LK_Teacher.Moduls.Content
     /// <summary>
     /// Логика взаимодействия для TodayForm.xaml
     /// </summary>
-    public partial class EventListForm : UserControl
+    public partial class EventListForm : UserControl, IEventForm
     {
         //Константы
         readonly int CountClasses;
@@ -114,6 +114,11 @@ namespace LK_Teacher.Moduls.Content
                 }
             }
             InitializeContent(day);
+        }
+
+        public IEventItem GetEventItem(TimeSpan timeOffset)
+        {
+            return null;
         }
     }
 }

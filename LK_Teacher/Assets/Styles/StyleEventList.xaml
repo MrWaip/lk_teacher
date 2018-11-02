@@ -35,6 +35,29 @@
         <Setter Property="Button.Content" Value="&#xf14a;" />
         <Setter Property="Button.Foreground" Value="#adb5bd"/>
     </Style>
-  
-    
+
+    <Style x:Key="EventNow" >
+        <Setter Property="Label.Content" Value="&#xf144;" />
+        <Setter Property="Label.Foreground" Value="#FFDC2020"/>
+    </Style>
+
+    <Style x:Key="NoMode" >
+        <Setter Property="Border.BorderBrush" Value="#FF2C364D"/>
+        <Style.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground" Value="#FF2C364D"/>
+            </Style>
+        </Style.Resources>
+
+    </Style>
+    <Style x:Key="ActiveMode" >
+        <Setter Property="Border.BorderBrush" Value="#FFDC2020"/>
+        <Style.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground" Value="#FFDC2020"/>
+            </Style>
+        </Style.Resources>
+    </Style>
+
+
 </ResourceDictionary>
