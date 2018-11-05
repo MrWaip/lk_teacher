@@ -1,4 +1,5 @@
 ﻿using LK_Teacher.Moduls.API;
+using LK_Teacher.Moduls.Registration;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -67,8 +68,6 @@ namespace LK_Teacher.Moduls.Authorization
             {
                 EmailInput.Foreground = (Brush)new BrushConverter().ConvertFrom("#FF2C364D");
                 EmailInput.ToolTip = null;
-                SignIn.IsEnabled = true;
-
             }
             else
             {
@@ -109,8 +108,17 @@ namespace LK_Teacher.Moduls.Authorization
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Application.Current.MainWindow = new MainWindow(DataUser);
-            Application.Current.MainWindow.Show();
+            if (DataUser != null)
+            {
+                Application.Current.MainWindow = new MainWindow(DataUser);
+                Application.Current.MainWindow.Show();
+            }
+        }
+
+        private void CreateNew_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationForm registrationForm = new RegistrationForm();
+            registrationForm.ShowDialog();
         }
     }
 }

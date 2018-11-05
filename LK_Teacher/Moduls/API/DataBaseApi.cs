@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using LK_Teacher.Moduls.API;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -122,6 +123,43 @@ namespace LK_Teacher.Moduls
             MySqlCommand command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
+        }
+
+        public static void Registration(string email, string login, string password, string fname, string lname, string mname, string phone_number)
+        {
+            login = UtilityApi.ValidateSqlValue(login);
+            password = UtilityApi.ValidateSqlValue(password);
+            fname = UtilityApi.ValidateSqlValue(fname);
+            lname = UtilityApi.ValidateSqlValue(lname);
+            mname = UtilityApi.ValidateSqlValue(mname);
+
+            connection.Open();
+            string query = $"INSERT INTO teachers (id_teacher ,email_teacher ,login_teacher ,password_teacher ,fname_teacher,lname_teacher,mname_teacher,phone_number_teacher) VALUES (  0 ,'{email}' , '{login}','{password}' ,'{fname}', '{lname}', '{mname}', '{phone_number}');";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public static bool HasSameField(string nameTable, string nameColumn, string value)
+        {
+            value = UtilityApi.ValidateSqlValue(value);
+            bool result;
+            connection.Open();
+            string query = $"SELECT * from `{nameTable}` where `{nameColumn}` = '{value}';";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            // читаем результат
+            if (reader.HasRows)
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+            reader.Close();
+            connection.Close();
+            return result;
         }
 
         public static Hashtable GetDataEvent(int idEvent)

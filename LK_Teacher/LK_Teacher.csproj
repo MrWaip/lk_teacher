@@ -135,6 +135,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Moduls\Registration\RegistrationForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Templates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +148,9 @@
     <Compile Include="Moduls\API\DataBaseApi.cs" />
     <Compile Include="Moduls\Orgonizer\Content\EventListItem.xaml.cs">
       <DependentUpon>EventListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Moduls\Registration\RegistrationForm.xaml.cs">
+      <DependentUpon>RegistrationForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -175,7 +182,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Moduls\Settings\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icons\bars.svg" />
   </ItemGroup>

@@ -39,6 +39,6 @@
             <CheckBox x:Name="RememberMe" Content="Запомнить меня" VerticalAlignment="Center" Foreground="#FF2C364D" BorderBrush="#FF2C364D"/>
             <Button x:Name="SignIn" Content="Войти" VerticalAlignment="Center" Margin="152,10,0,10" Foreground="White" BorderBrush="{x:Null}" Background="#FF2C364D" FontSize="14" Padding="14,7" IsDefault="True" BorderThickness="0" Template="{DynamicResource Primary}" IsEnabled="False" Click="SignIn_Click"/>
         </StackPanel>
-        <Button x:Name="CreateNew" Content="Создать аккаунт" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF2C364D" Margin="50,10" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14" Padding="10"/>
+        <Button x:Name="CreateNew" Content="Создать аккаунт" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF2C364D" Margin="50,10" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14" Padding="10" Click="CreateNew_Click"/>
     </StackPanel>
 </Window>
