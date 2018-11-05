@@ -3,6 +3,7 @@ using LK_Teacher.Moduls.API;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -21,7 +23,7 @@ namespace LK_Teacher.Moduls
     /// <summary>
     /// Логика взаимодействия для EventGridItem2.xaml
     /// </summary>
-    public partial class EventListItem : UserControl, IEventItem
+    public partial class EventGridItem : UserControl, IEventItem
     {
         //Константы ----------------------------------------------
 
@@ -73,24 +75,29 @@ namespace LK_Teacher.Moduls
             }
         }
 
+        private string NameStyleClass = null;
+
         Button IEventItem.btAction => btAction;
 
         TextBlock IEventItem.tblTitle => tblTitle;
 
-        public EventListItem(Window parent, DateTime dayEvent, int row)
+        public EventGridItem(Window parent,DateTime mondayThisWeek, int relativeCol, int relativeRow)
         {
             InitializeComponent();
+            this.RelativeCol = relativeCol;
+            this.RelativeRow = relativeRow;
 
-            this.Row = row;
+            this.AbsoluteCol = relativeCol + 1;
+            this.AbsoluteRow = relativeRow + 1;
 
             ParentWindow = (MainWindow)parent;
 
-            DayOfEvent = dayEvent;
-            DayOfEvent = DayOfEvent.Add(UtilityApi.TimeOfClasses[Row]);
+            DayOfEvent = mondayThisWeek.AddDays(relativeCol);
+            DayOfEvent = DayOfEvent.Add(UtilityApi.TimeOfClasses[NumberClass - 1]);
+
+            this.Resources = new ResourceDictionary() { Source = new Uri("pack://application:,,,/Assets/Styles/StyleEventGrid.xaml") };
 
             ParentWindow.TurnOnOff += TurnOnOffHandler;
-
-            this.Resources = new ResourceDictionary() { Source = new Uri("pack://application:,,,/Assets/Styles/StyleEventList.xaml") };
 
             Initialize();
         }
@@ -101,23 +108,15 @@ namespace LK_Teacher.Moduls
             {
                 if (DayOfEvent.Add(UtilityApi.DurationClass) >= DateTime.Now)
                 {
-                    Style st = (Style)this.TryFindResource("ActiveMode");
-                    labTag.Style = (Style)this.TryFindResource("EventNow");
-                    bgTitle.Style = st;
+                    NameStyleClass = "Current";
+                    Style st = (Style)this.TryFindResource(NameStyleClass);
+                    btAction.Style = st;
                 }
                 else
                 {
-                    Style st = (Style)this.TryFindResource("NoMode");
-                    
-                    if (TypeOfEvent == -1)
-                    {
-                        labTag.Style = (Style)this.TryFindResource("DisComplete");
-                    }
-                    else
-                    {
-                        labTag.Style = (Style)this.TryFindResource("Complete");
-                    }
-                    bgTitle.Style = st;
+                    NameStyleClass = "Disable";
+                    Style st = (Style)this.TryFindResource(NameStyleClass);
+                    btAction.Style = st;
                 }
             }
         }
@@ -125,13 +124,10 @@ namespace LK_Teacher.Moduls
         public void Initialize()
         {
             btAction.Tag = this;
-            lbDate.Content = DayOfEvent.ToString("HH:mm") + " - " + DayOfEvent.Add(new TimeSpan(1, 30, 0)).ToString("HH:mm");
 
-            bgTitle.Style = (Style)this.TryFindResource("NoMode");
-
-            if (Api.IsConnection)
+            if (DataBaseApi.IsConnection)
             {
-                Hashtable ht = Api.GetEventWhereDate(DayOfEvent);
+                Hashtable ht = DataBaseApi.GetEventWhereDate(DayOfEvent);
                 if (ht.Count != 0)
                 {
                     IdEvent = Convert.ToInt32(ht["id_event"].ToString());
@@ -144,50 +140,55 @@ namespace LK_Teacher.Moduls
                         )
                     {
                         StatusEvent = false;
-                        Api.UpdateStatusEvent(IdEvent, StatusEvent);
+                        DataBaseApi.UpdateStatusEvent(IdEvent, StatusEvent);
                     }
 
                     TypeOfEvent = Convert.ToInt32(ht["type_event"]);
 
                     btAction.RemoveHandler(Button.ClickEvent, (RoutedEventHandler)(PlusButtonClick));
                     btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(EventButtonClick));
-                    tblTitle.Text = ht["title_event"].ToString();
-                    string nameStyleClass = "";
+
+                    tblTitle.Text = ht["title_event"].ToString(); ;
+
                     switch (TypeOfEvent)
                     {
                         case 1:
-                            nameStyleClass = "ClassButton";
+                            NameStyleClass = "ClassButton";
                             break;
                         case 2:
-                            nameStyleClass = "СonferenceButton";
+                            NameStyleClass = "СonferenceButton";
                             break;
                         case 3:
-                            nameStyleClass = "EventButton";
+                            NameStyleClass = "EventButton";
                             break;
                     }
 
                     if (StatusEvent)
                     {
-                        labTag.Style = (Style)this.TryFindResource("NoComplete"); 
+                        labTag.Style = (Style)this.TryFindResource("NoComplete");
                     }
                     else
                     {
                         labTag.Style = (Style)this.TryFindResource("Complete");
                     }
-                    btAction.Style = (Style)this.TryFindResource(nameStyleClass);
+                    btAction.Style = (Style)this.TryFindResource(NameStyleClass);
                 }
                 else
                 {
                     if (DayOfEvent > DateTime.Now)
                     {
+                        NameStyleClass = "PlusButton";
                         btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(PlusButtonClick));
-                        btAction.Style = (Style)this.TryFindResource("PlusButton");
+                        btAction.Style = (Style)this.TryFindResource(NameStyleClass);
+                        tblTitle.Text = "Добавить событие?";
                         labTag.Style = (Style)this.TryFindResource("NoComplete");
                     }
                     else
                     {
+                        NameStyleClass = "Disable";
+                        tblTitle.Text = "Пусто";
                         labTag.Style = (Style)this.TryFindResource("DisComplete");
-                        btAction.Style = (Style)this.TryFindResource("Disable");
+                        btAction.Style = (Style)this.TryFindResource(NameStyleClass);
                     }
                 }
             }

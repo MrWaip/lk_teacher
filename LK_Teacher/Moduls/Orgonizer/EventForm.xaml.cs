@@ -25,7 +25,7 @@ namespace LK_Teacher.Assets
             ChangeEvent changeEvent = new ChangeEvent(eventGridItem,dataEvent);
             changeEvent.ShowDialog();
             //запрашиваем обновленные данные
-            Hashtable hashtable = Api.GetDataEvent(eventGridItem.IdEvent);
+            Hashtable hashtable = DataBaseApi.GetDataEvent(eventGridItem.IdEvent);
             labDayWeek.Content = eventGridItem.GetNameDay();
             var date =  hashtable["date_event"].ToString();
             labDate.Content = date.Remove(date.Length-3);
@@ -44,7 +44,7 @@ namespace LK_Teacher.Assets
             MessageBoxResult result = MessageBox.Show(message, caption, buttons, icon);
             if (result == MessageBoxResult.OK)
             {
-                Api.DeleteEvent(eventGridItem.IdEvent);
+                DataBaseApi.DeleteEvent(eventGridItem.IdEvent);
                 eventGridItem.IdEvent = -1;
                 eventGridItem.TypeOfEvent = -1;
                 eventGridItem.btAction.RemoveHandler(Button.ClickEvent, (RoutedEventHandler)eventGridItem.EventButtonClick);
@@ -67,9 +67,9 @@ namespace LK_Teacher.Assets
         internal void InitializeData(IEventItem egi)
         {
             eventGridItem = egi;
-            if (Api.IsConnection)
+            if (DataBaseApi.IsConnection)
             {
-                dataEvent = Api.GetDataEvent(eventGridItem.IdEvent);
+                dataEvent = DataBaseApi.GetDataEvent(eventGridItem.IdEvent);
                 Visibility = Visibility.Visible;
                 labDayWeek.Content = eventGridItem.GetNameDay();
                 var date = dataEvent["date_event"].ToString();

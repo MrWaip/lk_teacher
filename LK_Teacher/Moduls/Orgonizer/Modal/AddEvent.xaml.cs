@@ -33,9 +33,9 @@ namespace LK_Teacher.Assets
 
         private void BtAddEvent_Click(object sender, RoutedEventArgs e)
         {
-            if (Api.IsConnection)
+            if (DataBaseApi.IsConnection)
             {
-                int id = Api.AddNewEvent(tbTitle.Text, eventGridItem.DayOfEvent, tbDescription.Text, cbTypeEvent.SelectedIndex);
+                int id = DataBaseApi.AddNewEvent(tbTitle.Text, eventGridItem.DayOfEvent, tbDescription.Text, cbTypeEvent.SelectedIndex);
                 if (id != -1)
                 {
                     eventGridItem.TypeOfEvent = cbTypeEvent.SelectedIndex;

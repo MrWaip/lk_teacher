@@ -17,6 +17,7 @@ using LK_Teacher.Moduls;
 using System.Windows.Threading;
 using LK_Teacher.Moduls.Content;
 using LK_Teacher.Moduls.API;
+using System.Collections;
 
 namespace LK_Teacher
 {
@@ -25,7 +26,8 @@ namespace LK_Teacher
     /// </summary>
     public partial class MainWindow : Window
     {
-        private EventListItem[,] egItems = new EventListItem[5,6];
+        //Данные пользователя
+        public Hashtable DataUser { get; private set; }
 
         //Модуль контента
         private UserControl ContentModule;
@@ -33,22 +35,17 @@ namespace LK_Teacher
         //Время текущуго события
         private TimeSpan CurrentTimeOfClass;
 
-        private bool ActiveMode = false;
-
+        //Делегат сигнатуры метода обработчика событий
         public delegate void ActiveEventHandler(DateTime dayEvent);
-
+        
+        //Событие таймера
         public event ActiveEventHandler TurnOnOff;
 
-        public MainWindow()
+        public MainWindow(Hashtable dataUser)
         {
             InitializeComponent();
 
-            Api.InitializeApi("server=localhost;user=root;database=lk_teachers;password=1234;SslMode = none;");
-
-            if (!Api.IsConnection)
-            {
-                Environment.Exit(0);
-            }
+            DataUser = dataUser;
 
             //Основная иницализация с формы на сегодня
             ContentModule = new EventListForm(this, DateTime.Today);

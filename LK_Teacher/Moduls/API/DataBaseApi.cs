@@ -9,11 +9,17 @@ using System.Windows;
 
 namespace LK_Teacher.Moduls
 {
-    public static class Api
+    public static class DataBaseApi
     {
 
         private static MySqlConnection connection = null;
+
+        public static string EMAIL_TEACHER { get; set; }
+
+        public static string ID_TEACHER { get; set; }
+
         public static string ConnectionString { get; private set; } = null;
+
         public static bool IsConnection
         {
             get
@@ -45,7 +51,7 @@ namespace LK_Teacher.Moduls
             try
             {
                 connection.Open();
-                string query = $"INSERT INTO events (id_event ,title_event ,date_event ,description_event ,type_event,status_event) VALUES (  0 ,'{title}' , '{dateTimeEvent.ToString("yyyy-MM-dd H:mm:ss")}','{description}' ,{typeEvent}, true);";
+                string query = $"INSERT INTO events (id_event ,title_event ,date_event ,description_event ,type_event,status_event,id_teacher) VALUES (  0 ,'{title}' , '{dateTimeEvent.ToString("yyyy-MM-dd H:mm:ss")}','{description}' ,{typeEvent}, true, '{ID_TEACHER}');";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.ExecuteNonQuery();
                 command = new MySqlCommand("SELECT LAST_INSERT_ID();",connection);
@@ -64,7 +70,7 @@ namespace LK_Teacher.Moduls
         {
             var hashTable = new Hashtable();
             connection.Open();
-            string query = $"SELECT * from events where date_event = '{dateTimeEvent.ToString("yyyy-MM-dd H:mm:ss")}';";
+            string query = $"SELECT * from events where date_event = '{dateTimeEvent.ToString("yyyy-MM-dd H:mm:ss")}' and id_teacher = '{ID_TEACHER}';";
             MySqlCommand command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             // читаем результат
@@ -73,6 +79,26 @@ namespace LK_Teacher.Moduls
                 for (int i =0; i< reader.FieldCount;i++)
                 {
                     hashTable.Add(reader.GetName(i),reader[i].ToString());
+                }
+            }
+            reader.Close();
+            connection.Close();
+            return hashTable;
+        }
+
+        internal static Hashtable Authorization(string email, string password)
+        {
+            var hashTable = new Hashtable();
+            connection.Open();
+            string query = $"SELECT * from teachers where email_teacher = '{email}' and password_teacher = '{password}';";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            // читаем результат
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    hashTable.Add(reader.GetName(i), reader[i].ToString());
                 }
             }
             reader.Close();
@@ -102,7 +128,7 @@ namespace LK_Teacher.Moduls
         {
             var hashTable = new Hashtable();
             connection.Open();
-            string query = $"SELECT * from events where id_event = {idEvent};";
+            string query = $"SELECT * from events where id_event = {idEvent} and id_teacher = '{ID_TEACHER}';";
             MySqlCommand command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             // читаем результат

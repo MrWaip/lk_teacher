@@ -25,7 +25,7 @@ namespace LK_Teacher.Assets
             labDayWeek.Content = eventGridItem.GetNameDay();
             labDate.Content = eventGridItem.DayOfEvent.ToString("dd/MM/yyyy HH:mm");
 
-            if(baseValues == null) baseValues = Api.GetDataEvent(eventGridItem.IdEvent);
+            if(baseValues == null) baseValues = DataBaseApi.GetDataEvent(eventGridItem.IdEvent);
 
             cbTypeEvent.SelectedIndex = Convert.ToInt32(baseValues["type_event"]);
             tbTitle.Text = baseValues["title_event"].ToString();
@@ -72,9 +72,9 @@ namespace LK_Teacher.Assets
 
         private void btChangeEvent_Click(object sender, RoutedEventArgs e)
         {
-            if (Api.IsConnection)
+            if (DataBaseApi.IsConnection)
             {
-                Api.UpdateEvent(eventGridItem.IdEvent,tbTitle.Text, eventGridItem.DayOfEvent, tbDescription.Text, cbTypeEvent.SelectedIndex);
+                DataBaseApi.UpdateEvent(eventGridItem.IdEvent,tbTitle.Text, eventGridItem.DayOfEvent, tbDescription.Text, cbTypeEvent.SelectedIndex);
                 eventGridItem.TypeOfEvent = cbTypeEvent.SelectedIndex;
                 string nameStyleClass = "";
                 switch (cbTypeEvent.SelectedIndex)
