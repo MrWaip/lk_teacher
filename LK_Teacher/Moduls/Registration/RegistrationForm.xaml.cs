@@ -215,6 +215,7 @@ namespace LK_Teacher.Moduls.Registration
                 if (DataBaseApi.HasSameField("teachers", "phone_number_teacher", validNumber))
                 {
                     PhoneNumberInput.Foreground = (Brush)new BrushConverter().ConvertFrom("#FFDC2020");
+                    NumberPrefix.Foreground = (Brush)new BrushConverter().ConvertFrom("#FFDC2020");
                     PhoneNumberInput.ToolTip = new ToolTip().Content = "Этот номер уже зарегистрирован!";
                     PhoneValid = false;
                 }
@@ -228,6 +229,7 @@ namespace LK_Teacher.Moduls.Registration
             else
             {
                 PhoneNumberInput.Foreground = (Brush)new BrushConverter().ConvertFrom("#FFDC2020");
+                NumberPrefix.Foreground = (Brush)new BrushConverter().ConvertFrom("#FFDC2020");
                 PhoneNumberInput.ToolTip = "Неверный формат номера!\n Пример: +7 123 456 78 90 ";
                 PhoneValid = false;
             }
@@ -237,6 +239,7 @@ namespace LK_Teacher.Moduls.Registration
         private void PhoneNumberInput_GotFocus(object sender, RoutedEventArgs e)
         {
             PhoneNumberInput.Foreground = (Brush)new BrushConverter().ConvertFrom("#FF2C364D");
+            NumberPrefix.Foreground = (Brush)new BrushConverter().ConvertFrom("#FF2C364D");
         }
 
         //Метод общей валидации

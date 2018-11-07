@@ -134,7 +134,7 @@ namespace LK_Teacher.Moduls
             mname = UtilityApi.ValidateSqlValue(mname);
 
             connection.Open();
-            string query = $"INSERT INTO teachers (id_teacher ,email_teacher ,login_teacher ,password_teacher ,fname_teacher,lname_teacher,mname_teacher,phone_number_teacher) VALUES (  0 ,'{email}' , '{login}','{password}' ,'{fname}', '{lname}', '{mname}', '{phone_number}');";
+            string query = $"INSERT INTO teachers (id_teacher ,email_teacher ,login_teacher ,password_teacher ,fname_teacher,lname_teacher,mname_teacher,phone_number_teacher, status_profile_teacher) VALUES (  0 ,'{email}' , '{login}','{password}' ,'{fname}', '{lname}', '{mname}', '{phone_number}', false);";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();

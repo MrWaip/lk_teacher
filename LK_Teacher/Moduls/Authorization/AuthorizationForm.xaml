@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LK_Teacher.Moduls.Authorization"
         mc:Ignorable="d"
-        Title="LK Teacher - Вход" FontFamily="/LK_Teacher;component/Assets/Fonts/#Roboto" FontSize="14" MinWidth="481.5" MinHeight="458.5" Width="481.5" Height="458.5" MaxWidth="481.5" MaxHeight="458.5" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+        Title="LK Teacher - Вход" FontFamily="/LK_Teacher;component/Assets/Fonts/#Roboto" FontSize="14" MinWidth="481.5" MinHeight="496.8" Width="481.5" MaxWidth="484" WindowStartupLocation="CenterScreen" Closed="Window_Closed" Height="496.8" MaxHeight="496.8">
     <Window.Resources>
         <ControlTemplate x:Key="Primary" TargetType="{x:Type Button}">
             <Border x:Name="border"  Background="{TemplateBinding Background}" BorderThickness="0">
@@ -30,7 +30,27 @@
     </Window.Resources>
 
     <StackPanel Margin="0" MaxWidth="450" MaxHeight="450">
-        <Label Content="Вход" HorizontalAlignment="Center" FontSize="22" Foreground="#FF2C364D" Margin="0,40,0,30"/>
+        <Label Content="Вход" HorizontalAlignment="Center" FontSize="22" Foreground="#FF2C364D" Margin="0,40,0,10"/>
+        <Border x:Name="ErrorBox" BorderBrush="#FFBB1313" BorderThickness="1" Margin="50,0,50,25" Padding="0,10" Visibility="Hidden">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Visibility, ElementName=ErrorBox}" Value="Visible">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation  Storyboard.TargetProperty="(Border.Opacity)"
+                                         From="0" To="1" Duration="0:0:2" AutoReverse="True"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Label x:Name="ErrorMesage" Content="Error text: Code 2004" Margin="0" HorizontalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFFFD8D8" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Foreground="#FFBB1313"/>
+        </Border>
         <Label Content="Адрес электронной почты" FontSize="12" Foreground="#FF757575" Padding="0" Margin="50,0"/>
         <TextBox x:Name="EmailInput" Height="40" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" FontSize="18" Foreground="#FF202124" Margin="50,0,50,15" LostFocus="EmailInput_LostFocus" GotFocus="EmailInput_GotFocus"/>
         <Label Content="Пароль" FontSize="12" Foreground="#FF757575" Padding="0" Margin="50,0"/>

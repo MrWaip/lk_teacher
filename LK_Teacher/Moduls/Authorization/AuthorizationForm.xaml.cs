@@ -90,8 +90,10 @@ namespace LK_Teacher.Moduls.Authorization
 
         private void SignIn_Click(object sender, RoutedEventArgs e)
         {
-            DataUser = DataBaseApi.Authorization(EmailInput.Text, PasswordInput.Password); 
-            if (DataUser.Count != 0)
+            ErrorBox.Visibility = Visibility.Hidden;
+            DataUser = DataBaseApi.Authorization(EmailInput.Text, PasswordInput.Password);
+            bool status_profile = Convert.ToBoolean(DataUser["status_profile_teacher"]);
+            if (DataUser.Count != 0 && status_profile)
             {
                 if ((bool)RememberMe.IsChecked)
                 {
@@ -104,11 +106,24 @@ namespace LK_Teacher.Moduls.Authorization
                 }
                 this.Close();
             }
+
+            if (DataUser.Count == 0)
+            {
+                ErrorBox.Visibility = Visibility.Visible;
+                ErrorMesage.Content = "Неверный адрес электронной почты или пароль!";
+            }
+            if (DataUser.Count != 0 && !Convert.ToBoolean(DataUser["status_profile_teacher"]))
+            {
+                ErrorBox.Visibility = Visibility.Visible;
+                ErrorMesage.Content = "Этот профиль не подтвержден администратором!";
+                DataUser.Clear();
+            }
+
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (DataUser != null)
+            if (DataUser != null && DataUser.Count != 0)
             {
                 Application.Current.MainWindow = new MainWindow(DataUser);
                 Application.Current.MainWindow.Show();
