@@ -207,7 +207,7 @@ namespace LK_Teacher.Moduls.Registration
 
         private void PhoneNumberInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (UtilityApi.IsValidPhoneNumber("+7"+PhoneNumberInput.Text))
+            if (UtilityApi.IsValidPhoneNumber("+7"+PhoneNumberInput.Text) && PhoneNumberInput.Text.Length == 10)
             {
                 string validNumber = UtilityApi.FormatPhoneNumber("+7"+PhoneNumberInput.Text);
                 PhoneNumberInput.Tag = validNumber;
@@ -260,6 +260,63 @@ namespace LK_Teacher.Moduls.Registration
             else
             {
                 SignUp.IsEnabled = false;
+            }
+        }
+
+
+        private void PhoneNumberInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[0-9]*$"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void LnameInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[а-я-А-Я]"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void FnameInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[а-я-А-Я]"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void MnameInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[а-я-А-Я]"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void LoginInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z0-9_]*$"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void PasswordInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z0-9_]*$"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void PasswordInputRepeat_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z0-9_]*$"))
+            {
+                e.Handled = true;
             }
         }
     }

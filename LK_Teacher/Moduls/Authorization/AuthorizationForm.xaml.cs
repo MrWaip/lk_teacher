@@ -1,5 +1,6 @@
 ﻿using LK_Teacher.Moduls.API;
 using LK_Teacher.Moduls.Registration;
+using LK_Teacher.Moduls.Settings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,18 +29,19 @@ namespace LK_Teacher.Moduls.Authorization
         {
             InitializeComponent();
 
-            DataBaseApi.InitializeApi("server=localhost;user=root;database=lk_teachers;password=1234;SslMode = none;");
+            string connstr = $"server={Properties.Settings.Default.ServerHost};" +
+                $"port={Properties.Settings.Default.ServerPort};" +
+                $"user={Properties.Settings.Default.Username};" +
+                $"database={Properties.Settings.Default.Database};" +
+                $"password={Properties.Settings.Default.Password};" +
+                $"SslMode=none;";
+
+            DataBaseApi.InitializeApi(connstr);
 
             if (!DataBaseApi.IsConnection)
             {
                 Environment.Exit(0);
             }
-
-            //Позицонирование по центру
-            double screenHeight = SystemParameters.FullPrimaryScreenHeight;
-            double screenWidth = SystemParameters.FullPrimaryScreenWidth;
-            this.Top = (screenHeight - this.Height) / 2;
-            this.Left = (screenWidth - this.Width) / 2;
 
             //Чекаем remember me
             if (Properties.Settings.Default.RememberMode)
@@ -134,6 +136,12 @@ namespace LK_Teacher.Moduls.Authorization
         {
             RegistrationForm registrationForm = new RegistrationForm();
             registrationForm.ShowDialog();
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.ShowDialog();
         }
     }
 }

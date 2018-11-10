@@ -44,8 +44,9 @@ namespace LK_Teacher.Moduls
             ConnectionString = conStr;
             connection = new MySqlConnection(ConnectionString);
 
-            
         }
+
+        //Insert query
 
         public static int AddNewEvent(string title, DateTime dateTimeEvent,string description,int typeEvent)
         {
@@ -67,25 +68,22 @@ namespace LK_Teacher.Moduls
             }
         }
 
-        public static Hashtable GetEventWhereDate(DateTime dateTimeEvent)
+        public static void Registration(string email, string login, string password, string fname, string lname, string mname, string phone_number)
         {
-            var hashTable = new Hashtable();
+            login = UtilityApi.ValidateSqlValue(login);
+            password = UtilityApi.ValidateSqlValue(password);
+            fname = UtilityApi.ValidateSqlValue(fname);
+            lname = UtilityApi.ValidateSqlValue(lname);
+            mname = UtilityApi.ValidateSqlValue(mname);
+
             connection.Open();
-            string query = $"SELECT * from events where date_event = '{dateTimeEvent.ToString("yyyy-MM-dd H:mm:ss")}' and id_teacher = '{ID_TEACHER}';";
+            string query = $"INSERT INTO teachers (id_teacher ,email_teacher ,login_teacher ,password_teacher ,fname_teacher,lname_teacher,mname_teacher,phone_number_teacher, status_profile_teacher) VALUES (  0 ,'{email}' , '{login}','{password}' ,'{fname}', '{lname}', '{mname}', '{phone_number}', false);";
             MySqlCommand command = new MySqlCommand(query, connection);
-            MySqlDataReader reader = command.ExecuteReader();
-            // читаем результат
-            while (reader.Read())
-            {
-                for (int i =0; i< reader.FieldCount;i++)
-                {
-                    hashTable.Add(reader.GetName(i),reader[i].ToString());
-                }
-            }
-            reader.Close();
+            command.ExecuteNonQuery();
             connection.Close();
-            return hashTable;
         }
+
+        //Select query
 
         internal static Hashtable Authorization(string email, string password)
         {
@@ -107,37 +105,24 @@ namespace LK_Teacher.Moduls
             return hashTable;
         }
 
-        internal static void DeleteEvent(int idEvent)
+        public static Hashtable GetEventWhereDate(DateTime dateTimeEvent)
         {
+            var hashTable = new Hashtable();
             connection.Open();
-            string query = $"DELETE from events where  id_event = '{idEvent}';";
+            string query = $"SELECT * from events where date_event = '{dateTimeEvent.ToString("yyyy-MM-dd H:mm:ss")}' and id_teacher = '{ID_TEACHER}';";
             MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
+            MySqlDataReader reader = command.ExecuteReader();
+            // читаем результат
+            while (reader.Read())
+            {
+                for (int i =0; i< reader.FieldCount;i++)
+                {
+                    hashTable.Add(reader.GetName(i),reader[i].ToString());
+                }
+            }
+            reader.Close();
             connection.Close();
-        }
-
-        internal static void UpdateEvent(int idEvent, string titleEvent, DateTime dayOfEvent, string description, int type)
-        {
-            connection.Open();
-            string query = $"UPDATE events set title_event = '{titleEvent}', description_event = '{description}', type_event = '{type}'  where  id_event = '{idEvent}';";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public static void Registration(string email, string login, string password, string fname, string lname, string mname, string phone_number)
-        {
-            login = UtilityApi.ValidateSqlValue(login);
-            password = UtilityApi.ValidateSqlValue(password);
-            fname = UtilityApi.ValidateSqlValue(fname);
-            lname = UtilityApi.ValidateSqlValue(lname);
-            mname = UtilityApi.ValidateSqlValue(mname);
-
-            connection.Open();
-            string query = $"INSERT INTO teachers (id_teacher ,email_teacher ,login_teacher ,password_teacher ,fname_teacher,lname_teacher,mname_teacher,phone_number_teacher, status_profile_teacher) VALUES (  0 ,'{email}' , '{login}','{password}' ,'{fname}', '{lname}', '{mname}', '{phone_number}', false);";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.ExecuteNonQuery();
-            connection.Close();
+            return hashTable;
         }
 
         public static bool HasSameField(string nameTable, string nameColumn, string value)
@@ -182,6 +167,17 @@ namespace LK_Teacher.Moduls
             return hashTable;
         }
 
+        //Update query
+
+        internal static void UpdateEvent(int idEvent, string titleEvent, DateTime dayOfEvent, string description, int type)
+        {
+            connection.Open();
+            string query = $"UPDATE events set title_event = '{titleEvent}', description_event = '{description}', type_event = '{type}'  where  id_event = '{idEvent}';";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
         internal static void UpdateStatusEvent(int idEvent, bool statusEvent)
         {
             connection.Open();
@@ -190,5 +186,17 @@ namespace LK_Teacher.Moduls
             command.ExecuteNonQuery();
             connection.Close();
         }
+
+        //Delete query
+
+        internal static void DeleteEvent(int idEvent)
+        {
+            connection.Open();
+            string query = $"DELETE from events where  id_event = '{idEvent}';";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
     }
 }

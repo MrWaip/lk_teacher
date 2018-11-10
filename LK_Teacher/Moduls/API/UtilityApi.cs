@@ -10,19 +10,24 @@ namespace LK_Teacher.Moduls.API
 {
     static class UtilityApi
     {
-
+        //Расписание событий -  Время пар техникума
         public static TimeSpan[] TimeOfClasses = { new TimeSpan(8, 30, 0), new TimeSpan(10, 10, 0), new TimeSpan(12, 10, 0), new TimeSpan(13, 50, 0), new TimeSpan(15, 50, 0), new TimeSpan(17, 30, 0) };
 
         //public static TimeSpan[] TimeOfClasses = { new TimeSpan(19, 8, 0) };
 
+        //Константное время одного события
         public static readonly TimeSpan DurationClass = new TimeSpan(1,30,0);
 
+        //Время завершения последнего события с поправкой на отключение системы
         public static readonly TimeSpan EndLastClass = new TimeSpan(1, 30, 1);
 
+        //Возвращает день недели сегоднешнего дня
         public static string DayOfWeekToday()
         {
             return DayOfWeek(DateTime.Today);
         }
+
+        //Возвращает день недели указанного дня
         public static string DayOfWeek(DateTime date)
         {
             switch ((int)date.DayOfWeek)
@@ -66,12 +71,14 @@ namespace LK_Teacher.Moduls.API
             return day;
         }
 
+        //Возвращает Дату и время последней пары сегодня
         public static DateTime LastTimeOfClassToday()
         {
             DateTime lastTimeOfClassToday = DateTime.Today.Add(TimeOfClasses.Last());
             return lastTimeOfClassToday;
         }
 
+        //Возвращает время текущего события если такое имеется
         public static TimeSpan TimeOfCurrentClass()
         {
             foreach (TimeSpan ts in TimeOfClasses)
@@ -83,6 +90,8 @@ namespace LK_Teacher.Moduls.API
             }
             return new TimeSpan();
         }
+
+        //Валидация полей --------------------------------------------------------------------
 
         public static bool IsValidEmail(string email)
         {
@@ -98,7 +107,6 @@ namespace LK_Teacher.Moduls.API
                 return false;
             }
         }
-
 
         public static bool IsValidPhoneNumber(string pnumber)
         {
@@ -121,10 +129,19 @@ namespace LK_Teacher.Moduls.API
             return Regex.Replace(phoneNumber, "^" + strPattern + "$", "+7($2$3$4)$5$6$7-$8$9-$10$11");
         }
 
-        //Валидация на SQL Инъекции
+        private static readonly Regex _regex = new Regex("[^0-9]+"); 
+
+        public static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+
+        //Валидация на SQL Инъекции ----------------------------------------------------------
 
         private static readonly Regex RegexId = new Regex(@"(^[_@\#a-zA-Z][_@\#\$a-zA-Z0-9]*(?:\.[_@\#\$a-zA-Z0-9]+)?$)|(^\[{1}[_@\#\$\.a-z A-Z0-9]{0,128}\]{1}$)", RegexOptions.Compiled);
+
         private static readonly Regex RegexInteger = new Regex(@"^[\d]+$", RegexOptions.Compiled);
+
         private static readonly Regex RegexValue = new Regex(@"(^(([']{1}([^'])*[']{1})|([^'])*)$)", RegexOptions.Compiled);
 
         public static string ValidateSqlId(string identifierName, bool allowEmptyStrings = false)

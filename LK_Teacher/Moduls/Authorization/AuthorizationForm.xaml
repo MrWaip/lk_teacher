@@ -27,20 +27,34 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <ControlTemplate x:Key="Setting" TargetType="{x:Type Button}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}"  Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Button.Foreground" TargetName="border" Value="#FF757575"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Button.Foreground" TargetName="border" Value="#E5757575"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Window.Resources>
 
     <StackPanel Margin="0" MaxWidth="450" MaxHeight="450">
-        <Label Content="Вход" HorizontalAlignment="Center" FontSize="22" Foreground="#FF2C364D" Margin="0,40,0,10"/>
+        <Button x:Name="SettingBt" Content="&#xf013;" FontFamily="/LK_Teacher;component/Assets/Fonts/#Font Awesome 5 Free Solid" HorizontalAlignment="Right" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#66757575" BorderThickness="0" Template="{DynamicResource Setting}" Click="Settings_Click"/>
+        <Label Content="Вход" HorizontalAlignment="Center" FontSize="22" Foreground="#FF2C364D" Margin="0,20,0,10"/>
         <Border x:Name="ErrorBox" BorderBrush="#FFBB1313" BorderThickness="1" Margin="50,0,50,25" Padding="0,10" Visibility="Hidden">
             <Border.Style>
-                <Style TargetType="Border">
+                <Style TargetType="{x:Type Border}">
                     <Setter Property="Opacity" Value="0"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Visibility, ElementName=ErrorBox}" Value="Visible">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation  Storyboard.TargetProperty="(Border.Opacity)"
+                                        <DoubleAnimation  Storyboard.TargetProperty="(UIElement.Opacity)"
                                          From="0" To="1" Duration="0:0:2" AutoReverse="True"/>
                                     </Storyboard>
                                 </BeginStoryboard>

@@ -8,5 +8,29 @@
     <Setting Name="RememberMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ServerHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="Database" Type="System.String" Scope="User">
+      <Value Profile="(Default)">lk_teachers</Value>
+    </Setting>
+    <Setting Name="Username" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1234</Value>
+    </Setting>
+    <Setting Name="ServerUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://lk-teacher.loc</Value>
+    </Setting>
+    <Setting Name="ImagesUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://lk-teacher.loc/images</Value>
+    </Setting>
+    <Setting Name="ApiUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://lk-teacher.loc/api</Value>
+    </Setting>
+    <Setting Name="ServerPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3306</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
