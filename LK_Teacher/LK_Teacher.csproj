@@ -35,12 +35,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=8.0.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Autofac.Wpf, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Autofac.7.1.0.431\lib\net45\Prism.Autofac.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.7.1.0.431\lib\net45\Prism.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.7.1.0.431\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -59,36 +78,46 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Settings.cs" />
+    <Compile Include="Event\EventFormDataHandler.cs" />
+    <Compile Include="Modules\Models\EventFormModel.cs" />
+    <Compile Include="Modules\Models\EventListItemModel.cs" />
+    <Compile Include="Modules\Models\EventListModel.cs" />
+    <Compile Include="Modules\ViewModel\AuthorizationViewModel.cs" />
+    <Compile Include="Modules\ViewModel\EventFormViewModel.cs" />
+    <Compile Include="Modules\ViewModel\EventListItemViewModel.cs" />
+    <Compile Include="Modules\ViewModel\EventListViewModel.cs" />
+    <Compile Include="Modules\View\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Assets\Styles\StyleEventGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Moduls\Authorization\AuthorizationForm.xaml">
+    <Page Include="Modules\View\AuthorizationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Moduls\Orgonizer\Content\EventGridItem.xaml">
+    <Page Include="Modules\Orgonizer\Content\EventGridItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Moduls\Orgonizer\Content\EventGridForm.xaml">
+    <Page Include="Modules\View\EventGridForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Moduls\Orgonizer\Content\EventListForm.xaml">
+    <Page Include="Modules\View\EventListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Moduls\Orgonizer\Modal\AddEvent.xaml">
+    <Page Include="Modules\Orgonizer\Modal\AddEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Moduls\Orgonizer\Modal\ChangeEvent.xaml">
+    <Page Include="Modules\Orgonizer\Modal\ChangeEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Moduls\Orgonizer\EventForm.xaml">
+    <Page Include="Modules\View\EventForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,7 +125,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Modules\View\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -104,43 +133,50 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Moduls\API\UtilityApi.cs" />
-    <Compile Include="Moduls\Authorization\AuthorizationForm.xaml.cs">
-      <DependentUpon>AuthorizationForm.xaml</DependentUpon>
+    <Compile Include="Utility\RelayCommand.cs" />
+    <Compile Include="Utility\StyleConverter.cs" />
+    <Compile Include="Utility\UtilFunctions.cs" />
+    <Compile Include="Modules\View\AuthorizationView.xaml.cs">
+      <DependentUpon>AuthorizationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Moduls\Orgonizer\Content\EventGridItem.xaml.cs">
+    <Compile Include="Modules\Orgonizer\Content\EventGridItem.xaml.cs">
       <DependentUpon>EventGridItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Moduls\Orgonizer\Content\IEventForm.cs" />
-    <Compile Include="Moduls\Orgonizer\Content\IEventItem.cs" />
-    <Compile Include="Moduls\Orgonizer\Content\EventGridForm.xaml.cs">
+    <Compile Include="Modules\Interface\IEventForm.cs" />
+    <Compile Include="Modules\Interface\IEventItem.cs" />
+    <Compile Include="Modules\View\EventGridForm.xaml.cs">
       <DependentUpon>EventGridForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Moduls\Orgonizer\Content\EventListForm.xaml.cs">
-      <DependentUpon>EventListForm.xaml</DependentUpon>
+    <Compile Include="Modules\View\EventListView.xaml.cs">
+      <DependentUpon>EventListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Moduls\Orgonizer\Modal\AddEvent.xaml.cs">
+    <Compile Include="Modules\Orgonizer\Modal\AddEvent.xaml.cs">
       <DependentUpon>AddEvent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Moduls\Orgonizer\Modal\ChangeEvent.xaml.cs">
+    <Compile Include="Modules\Orgonizer\Modal\ChangeEvent.xaml.cs">
       <DependentUpon>ChangeEvent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Moduls\Orgonizer\EventForm.xaml.cs">
+    <Compile Include="Modules\View\EventForm.xaml.cs">
       <DependentUpon>EventForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Modules\ViewModel\ShellViewModel.cs" />
+    <Compile Include="Modules\View\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Moduls\Orgonizer\Content\EventListItem.xaml">
+    <Page Include="Modules\View\EventListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Moduls\Registration\RegistrationForm.xaml">
+    <Page Include="Modules\View\ProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Moduls\Settings\SettingsForm.xaml">
+    <Page Include="Modules\Registration\RegistrationForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Settings\SettingsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,14 +186,14 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Moduls\API\DataBaseApi.cs" />
-    <Compile Include="Moduls\Orgonizer\Content\EventListItem.xaml.cs">
+    <Compile Include="Utility\DBApi.cs" />
+    <Compile Include="Modules\View\EventListItem.xaml.cs">
       <DependentUpon>EventListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Moduls\Registration\RegistrationForm.xaml.cs">
+    <Compile Include="Modules\Registration\RegistrationForm.xaml.cs">
       <DependentUpon>RegistrationForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Moduls\Settings\SettingsForm.xaml.cs">
+    <Compile Include="Modules\Settings\SettingsForm.xaml.cs">
       <DependentUpon>SettingsForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -182,6 +218,7 @@
     <Resource Include="Assets\Fonts\Roboto-BoldItalic.ttf" />
     <Resource Include="Assets\Fonts\Roboto-Regular.ttf" />
     <Resource Include="Assets\Fonts\Font Awesome 5 Free-Regular-400.otf" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -190,7 +227,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Modules\Profile\" />
+    <Folder Include="Modules\Shell\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icons\bars.svg" />
   </ItemGroup>
