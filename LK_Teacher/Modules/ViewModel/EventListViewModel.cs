@@ -36,8 +36,9 @@ namespace LK_Teacher.Modules.ViewModel
         public EventListViewModel(DateTime day)
         {
             EventForm = new EventForm();
-            _ELModel = new EventListModel(day);
+            _ELModel = new EventListModel();
             _ELModel.PropertyChanged += ModelpropertyChanged;
+            _ELModel.InitializeEventList(day);
         }
 
         /// <summary>

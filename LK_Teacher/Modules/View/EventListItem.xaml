@@ -13,7 +13,7 @@
              MinHeight="50">
 
     <UserControl.Resources>
-        <l:StyleConverter x:Key="StyleConverter" />
+        
     </UserControl.Resources>
 
     <Border x:Name="BackGround"

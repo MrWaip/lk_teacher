@@ -1,4 +1,5 @@
-﻿using LK_Teacher.Modules.Utility;
+﻿using LK_Teacher.Event;
+using LK_Teacher.Modules.Utility;
 using LK_Teacher.Modules.View;
 using Prism.Mvvm;
 using System;
@@ -17,13 +18,14 @@ namespace LK_Teacher.Modules.Models
         /// <summary>
         /// Инициализируем объект с указанным днем
         /// </summary>
-        public EventListModel(DateTime day)
+        public EventListModel()
         {
+            EventListUpdater.Instance.Subscribe(Update);
+
             CountClasses = UtilFunctions.TimeofEvents.Length;
 
             EventList = new ObservableCollection<EventListItem>();
 
-            InitializeEventList(day);
         }
 
         //Константы
@@ -94,7 +96,7 @@ namespace LK_Teacher.Modules.Models
 
                 for (int number_class = 0; number_class < CountClasses; number_class++)
                 {
-                    var eli = new EventListItem(null, null, day, number_class);
+                    var eli = new EventListItem(day, number_class);
                     EventList.Add(eli);
                 }
             }
@@ -108,6 +110,11 @@ namespace LK_Teacher.Modules.Models
         public void ChangeDay(int offset)
         {
             InitializeEventList(_DayOfEvent.AddDays(offset));
+        }
+
+        private void Update()
+        {
+            InitializeEventList(_DayOfEvent);
         }
 
         //Ловим изменения

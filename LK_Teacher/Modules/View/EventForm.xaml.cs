@@ -1,5 +1,4 @@
-﻿using LK_Teacher.Assets;
-using LK_Teacher.Modules;
+﻿using LK_Teacher.Modules;
 using LK_Teacher.Modules.Utility;
 using LK_Teacher.Modules.ViewModel;
 using System;
@@ -22,21 +21,6 @@ namespace LK_Teacher.Modules.View
             DataContext = new EventFormViewModel();
             InitializeComponent();
         }
-
-        //private void btChange_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //    ChangeEvent changeEvent = new ChangeEvent(eventGridItem,dataEvent);
-        //    changeEvent.ShowDialog();
-        //    //запрашиваем обновленные данные
-        //    Hashtable hashtable = DBApi.GetDataEvent(eventGridItem.IdEvent);
-        //    labDayWeek.Content = eventGridItem.GetNameDay();
-        //    var date =  hashtable["date_event"].ToString();
-        //    labDate.Content = date.Remove(date.Length-3);
-        //    tblTitle.Text = hashtable["title_event"].ToString();
-        //    labTypeEvent.Content = eventGridItem.GetTypeEvent();
-        //    tblDdescription.Text = hashtable["description_event"].ToString();
-        //}
 
         //private void btDelete_Click(object sender, RoutedEventArgs e)
         //{
@@ -65,22 +49,6 @@ namespace LK_Teacher.Modules.View
         //        eventGridItem.btAction.Style = (Style)eventGridItem.TryFindResource(nameStyleClass);
         //        eventGridItem.tblTitle.Text = "пусто";
         //        this.Visibility = Visibility.Hidden; 
-        //    }
-        //}
-
-        //internal void InitializeData(IEventItem egi)
-        //{
-        //    eventGridItem = egi;
-        //    if (DBApi.IsConnection)
-        //    {
-        //        dataEvent = DBApi.GetDataEvent(eventGridItem.IdEvent);
-        //        Visibility = Visibility.Visible;
-        //        labDayWeek.Content = eventGridItem.GetNameDay();
-        //        var date = dataEvent["date_event"].ToString();
-        //        labDate.Content = eventGridItem.DayOfEvent.ToString("dd/MM/yyyy HH:mm");
-        //        tblTitle.Text = dataEvent["title_event"].ToString();
-        //        labTypeEvent.Content = eventGridItem.GetTypeEvent();
-        //        tblDdescription.Text = dataEvent["description_event"].ToString();
         //    }
         //}
     }

@@ -21,6 +21,30 @@ namespace LK_Teacher.Modules.Utility
         //Время завершения последнего события с поправкой на отключение системы
         public static readonly TimeSpan EndLastClass = new TimeSpan(1, 30, 1);
 
+        /// <summary>
+        /// Возвращает наименование типа события по номеру события.
+        /// </summary>
+        /// <param name="TypeOfEvent">
+        /// Номер события:
+        /// 1 = Занятие,
+        /// 2 = Совещание,
+        /// 3 = Мероприятие.
+        /// </param>
+        /// <returns></returns>
+        public static string GetTypeEvent( int TypeOfEvent)
+        {
+            switch (TypeOfEvent)
+            {
+                case 1:
+                    return "Занятие";
+                case 2:
+                    return "Совещание";
+                case 3:
+                    return "Мероприятие";
+            }
+            return null;
+        }
+
         //Возвращает день недели сегоднешнего дня
         public static string DayOfWeekToday()
         {

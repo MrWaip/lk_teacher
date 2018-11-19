@@ -79,10 +79,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Event\EventFormDataHandler.cs" />
+    <Compile Include="Event\EventListUpdater.cs" />
+    <Compile Include="Modules\Models\AddEventModel.cs" />
+    <Compile Include="Modules\Models\ChangeEventModel.cs" />
     <Compile Include="Modules\Models\EventFormModel.cs" />
     <Compile Include="Modules\Models\EventListItemModel.cs" />
     <Compile Include="Modules\Models\EventListModel.cs" />
+    <Compile Include="Modules\ViewModel\AddEventViewModel.cs" />
     <Compile Include="Modules\ViewModel\AuthorizationViewModel.cs" />
+    <Compile Include="Modules\ViewModel\ChangeEventViewModel.cs" />
     <Compile Include="Modules\ViewModel\EventFormViewModel.cs" />
     <Compile Include="Modules\ViewModel\EventListItemViewModel.cs" />
     <Compile Include="Modules\ViewModel\EventListViewModel.cs" />
@@ -109,11 +114,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modules\Orgonizer\Modal\AddEvent.xaml">
+    <Page Include="Modules\View\AddEventView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modules\Orgonizer\Modal\ChangeEvent.xaml">
+    <Page Include="Modules\View\ChangeEventView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,11 +155,11 @@
     <Compile Include="Modules\View\EventListView.xaml.cs">
       <DependentUpon>EventListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Orgonizer\Modal\AddEvent.xaml.cs">
-      <DependentUpon>AddEvent.xaml</DependentUpon>
+    <Compile Include="Modules\View\AddEventView.xaml.cs">
+      <DependentUpon>AddEventView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Orgonizer\Modal\ChangeEvent.xaml.cs">
-      <DependentUpon>ChangeEvent.xaml</DependentUpon>
+    <Compile Include="Modules\View\ChangeEventView.xaml.cs">
+      <DependentUpon>ChangeEventView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\View\EventForm.xaml.cs">
       <DependentUpon>EventForm.xaml</DependentUpon>
@@ -228,6 +233,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Modules\Orgonizer\Modal\" />
     <Folder Include="Modules\Profile\" />
     <Folder Include="Modules\Shell\" />
   </ItemGroup>

@@ -1,5 +1,4 @@
-﻿using LK_Teacher.Assets;
-using LK_Teacher.Modules.Utility;
+﻿using LK_Teacher.Modules.Utility;
 using LK_Teacher.Modules.View;
 using System;
 using System.Collections;
@@ -202,8 +201,8 @@ namespace LK_Teacher.Modules
         public void PlusButtonClick(object sender, RoutedEventArgs e)
         {
 
-            AddEvent formAddEvent = new AddEvent(((Button)sender).Tag);
-            formAddEvent.ShowDialog();
+            //AddEventView formAddEvent = new AddEventView(((Button)sender).Tag);
+            //formAddEvent.ShowDialog();
         }
 
         public void EventButtonClick(object sender, RoutedEventArgs e)

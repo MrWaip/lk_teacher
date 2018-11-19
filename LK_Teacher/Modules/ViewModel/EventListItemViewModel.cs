@@ -48,11 +48,11 @@ namespace LK_Teacher.Modules.ViewModel
             get { return _ELIModel.TitleStyle; }
         }
 
-        public bool IsEventSet
+        public EventListItemModel.StatusViewEvent StatusViewEvent
         {
             get
             {
-                return _ELIModel.IsEventSet;
+                return _ELIModel.GetStatusViewEvent;
             }
         }
 
@@ -82,15 +82,17 @@ namespace LK_Teacher.Modules.ViewModel
                 return _ActionCommand ??
                   (_ActionCommand = new RelayCommand(obj =>
                   {
-                      if (IsEventSet)
+                      switch (StatusViewEvent)
                       {
-                          //выводим ИНФУ 
-                          _ELIModel.ShowInfoEvent();
-
-                      }
-                      else
-                      {
-                          //
+                          case EventListItemModel.StatusViewEvent.FINISHED_INSTALLED:
+                              _ELIModel.ShowInfoEvent();
+                              break;
+                          case EventListItemModel.StatusViewEvent.NOT_FINISHED_INSTALLED:
+                              _ELIModel.ShowInfoEvent();
+                              break;
+                          case EventListItemModel.StatusViewEvent.NOT_FINISHED_NOT_INSTALLED:
+                              _ELIModel.AddEvent();
+                              break;
                       }
                   }));
             }

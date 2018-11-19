@@ -1,5 +1,7 @@
 ﻿using LK_Teacher.Event;
 using LK_Teacher.Modules.Utility;
+using LK_Teacher.Modules.View;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections;
@@ -21,6 +23,11 @@ namespace LK_Teacher.Modules.Models
         const int CONFERENCE_TYPE = 2;
         const int EVENT_TYPE = 3;
 
+        public enum StatusViewEvent
+        {
+            FINISHED_NOT_INSTALLED, FINISHED_INSTALLED, NOT_FINISHED_NOT_INSTALLED, NOT_FINISHED_INSTALLED
+        }
+
         ////Ссылки ------------------------------------------------
 
         ////Ссылка на родительское окно
@@ -31,7 +38,7 @@ namespace LK_Teacher.Modules.Models
         ////Свойства -----------------------------------
 
         //Id события
-        private int IdEvent = -1;
+        private int _IdEvent = -1;
 
         //Тип события
         private int _TypeOfEvent = NONE_TYPE;
@@ -94,7 +101,7 @@ namespace LK_Teacher.Modules.Models
         }
 
         //Мета информация заголовка события
-        private string _TitleMetaInfo;
+        private string _TitleMetaInfo = "Пусто";
         public string TitleMetaInfo
         {
             get { return _TitleMetaInfo; }
@@ -142,30 +149,41 @@ namespace LK_Teacher.Modules.Models
         }
 
         //Установлено ли сообытие
-        public bool IsEventSet
+        public StatusViewEvent GetStatusViewEvent
         {
             get
             {
-                if (TypeOfEvent == 0)
-                    return false;
-                else return true;
+                if (DayOfEvent < DateTime.Now)
+                {
+                    if (_IdEvent == -1)
+                    {
+                        return StatusViewEvent.FINISHED_NOT_INSTALLED;
+                    }
+                    else
+                    {
+                        return StatusViewEvent.FINISHED_INSTALLED;
+                    }
+                }
+                else
+                {
+                    if (_IdEvent == -1)
+                    {
+                        return StatusViewEvent.NOT_FINISHED_NOT_INSTALLED;
+                    }
+                    else
+                    {
+                        return StatusViewEvent.NOT_FINISHED_INSTALLED;
+                    }
+                }
+
             }
         }
-
-        //Button IEventItem.btAction => btAction;
-
-        //TextBlock IEventItem.tblTitle => tblTitle;
 
         public EventListItemModel(DateTime day_event, int number_event)
         {
             NumberOfEvent = number_event;
 
-            //ParentWindow = (ShellView)parent;
-
-            //EventForm = evf;
-
-            DayOfEvent = day_event;
-            DayOfEvent = DayOfEvent.Add(UtilFunctions.TimeofEvents[number_event]);
+            DayOfEvent = day_event.Add(UtilFunctions.TimeofEvents[number_event]);
 
             ////ParentWindow.TurnOnOff += TurnOnOffHandler;
 
@@ -184,7 +202,7 @@ namespace LK_Teacher.Modules.Models
                 Hashtable ht = DBApi.GetEventWhereDate(DayOfEvent);
                 if (ht.Count != 0)
                 {
-                    IdEvent = Convert.ToInt32(ht["id_event"].ToString());
+                    _IdEvent = Convert.ToInt32(ht["id_event"].ToString());
                     StatusEvent = Convert.ToBoolean(ht["status_event"]);
 
                     if (
@@ -194,13 +212,10 @@ namespace LK_Teacher.Modules.Models
                         )
                     {
                         StatusEvent = false;
-                        DBApi.UpdateStatusEvent(IdEvent, StatusEvent);
+                        DBApi.UpdateStatusEvent(_IdEvent, StatusEvent);
                     }
 
                     TypeOfEvent = Convert.ToInt32(ht["type_event"]);
-
-                    //btAction.RemoveHandler(Button.ClickEvent, (RoutedEventHandler)(PlusButtonClick));
-                    //btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(EventButtonClick));
 
                     TitleMetaInfo = ht["title_event"].ToString();
 
@@ -228,6 +243,9 @@ namespace LK_Teacher.Modules.Models
                 }
                 else
                 {
+                    TitleMetaInfo = "Пусто";
+                    TypeOfEvent = NONE_TYPE;
+
                     if (DayOfEvent > DateTime.Now)
                     {
                         //btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(PlusButtonClick));
@@ -245,7 +263,12 @@ namespace LK_Teacher.Modules.Models
 
         public void ShowInfoEvent()
         {
-            EventFormDataHandler.Instance.Publish(IdEvent);
+            EventFormDataHandler.Instance.Publish(_IdEvent);
+        }
+
+        public void AddEvent()
+        {
+            new AddEventView(DayOfEvent).ShowDialog();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -254,5 +277,6 @@ namespace LK_Teacher.Modules.Models
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+
     }
 }

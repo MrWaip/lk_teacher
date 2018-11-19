@@ -1,5 +1,6 @@
 ﻿using LK_Teacher.Event;
 using LK_Teacher.Modules.Utility;
+using LK_Teacher.Modules.View;
 using Prism.Mvvm;
 using System;
 using System.Collections;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace LK_Teacher.Modules.Models
 {
@@ -21,7 +23,7 @@ namespace LK_Teacher.Modules.Models
         public bool IsSetEvent
         {
             get { return _IsSetEvent; }
-            set
+            private set
             {
                 _IsSetEvent = value;
                 RaisePropertyChanged("Visibility");
@@ -39,6 +41,38 @@ namespace LK_Teacher.Modules.Models
             }
         }
 
+        private DateTime _DateEvent;
+        public DateTime DateEvent
+        {
+            get { return _DateEvent; }
+            private set { SetProperty(ref _DateEvent, value); }
+        }
+
+        private string _DayOfWeekEvent;
+        public string DayOfWeekEvent
+        {
+            get { return _DayOfWeekEvent; }
+            private set
+            {
+                _DayOfWeekEvent = value;
+                RaisePropertyChanged("DayOfWeekEvent");
+            }
+        }
+
+        private int _TypeOfEvent;
+        public int TypeOfEvent
+        {
+            get { return _TypeOfEvent; }
+            private set { SetProperty(ref _TypeOfEvent, value); }
+        }
+
+        private string _DescriptionEvent;
+        public string DescriptionEvent
+        {
+            get { return _DescriptionEvent; }
+            private set { SetProperty(ref _DescriptionEvent, value); }
+        }
+
         public EventFormModel()
         {
             EventFormDataHandler.Instance.Subscribe(ShowInfo);
@@ -51,14 +85,42 @@ namespace LK_Teacher.Modules.Models
             _IdEvent = id_event;
 
             Hashtable dataEvent = DBApi.GetDataEvent(id_event);
-            //Visibility = Visibility.Visible;
-            //labDayWeek.Content = eventGridItem.GetNameDay();
-            //var date = dataEvent["date_event"].ToString();
-            //labDate.Content = eventGridItem.DayOfEvent.ToString("dd/MM/yyyy HH:mm");
-            TitleEvent = dataEvent["title_event"].ToString();
-            //labTypeEvent.Content = eventGridItem.GetTypeEvent();
-            //tblDdescription.Text = dataEvent["description_event"].ToString();
 
+            DateEvent = DateTime.Parse(dataEvent["date_event"] as string);
+
+            DayOfWeekEvent = UtilFunctions.DayOfWeek(DateEvent);
+
+            TitleEvent = dataEvent["title_event"].ToString();
+
+            TypeOfEvent = Convert.ToInt32(dataEvent["type_event"]);
+
+            DescriptionEvent = dataEvent["description_event"].ToString();
+
+        }
+
+        public void ChangeEvent()
+        {
+            new ChangeEvent(_IdEvent).ShowDialog();
+        }
+
+        public void DeleteEvent()
+        {
+            MessageBoxResult result = MessageBox.Show("Вы действительно хотите удалить событие?", "Удаление события", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if (result == MessageBoxResult.OK)
+            {
+                DBApi.DeleteEvent(_IdEvent);
+                IsSetEvent = false;
+                EventListUpdater.Instance.Publish();
+                //eventGridItem.TypeOfEvent = -1;
+                //eventGridItem.btAction.RemoveHandler(Button.ClickEvent, (RoutedEventHandler)eventGridItem.EventButtonClick);
+                //string nameStyleClass;
+                //if (eventGridItem.DayOfEvent >= DateTime.Now)
+                //{
+                //    eventGridItem.btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(eventGridItem.PlusButtonClick));
+                //    nameStyleClass = "PlusButton";
+                //}
+                //else nameStyleClass = "Disable";
+            }
 
         }
     }

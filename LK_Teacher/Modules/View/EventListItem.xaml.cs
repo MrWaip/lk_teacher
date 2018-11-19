@@ -1,5 +1,4 @@
-﻿using LK_Teacher.Assets;
-using LK_Teacher.Modules.Utility;
+﻿using LK_Teacher.Modules.Utility;
 using LK_Teacher.Modules.View;
 using LK_Teacher.Modules.ViewModel;
 using System;
@@ -87,7 +86,7 @@ namespace LK_Teacher.Modules.View
         /// <param name="evf"></param>
         /// <param name="dayEvent">День события</param>
         /// <param name="number_class">Номмер события. Смотри UtilFunctions.</param>
-        public EventListItem(Window parent, EventForm evf, DateTime dayEvent, int number_class)
+        public EventListItem(DateTime dayEvent, int number_class)
         {
             InitializeComponent();
 
