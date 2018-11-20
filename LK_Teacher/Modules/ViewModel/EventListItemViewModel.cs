@@ -56,17 +56,6 @@ namespace LK_Teacher.Modules.ViewModel
             }
         }
 
-        private string _ShowForm = "Colapsed";
-        public string ShowForm
-        {
-            get { return _ShowForm; }
-            set
-            {
-                _ShowForm = value;
-                RaisePropertyChanged("ShowForm");
-            }
-        }
-
         public EventListItemViewModel(DateTime day_event, int number_event)
         {
             _ELIModel = new EventListItemModel(day_event, number_event);

@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Templates.xaml" />
+                <ResourceDictionary Source="/Assets/Styles/StyleEventGrid.xaml" />
                 <ResourceDictionary  Source="/Assets/Styles/StyleEventList.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <FontFamily x:Key="FontAwesome">/Assets/Fonts/FontAwesome.otf#Font Awesome 5 Free Solid</FontFamily>

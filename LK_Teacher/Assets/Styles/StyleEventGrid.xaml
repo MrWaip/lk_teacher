@@ -4,7 +4,7 @@
     <!--Стили для Сетки-->
     
     <!--Template для кнопок-->
-    <Style x:Key="BorderB" TargetType="{x:Type Button}">
+    <Style x:Key="BoxButtonBase" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -16,7 +16,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="PlusButton" BasedOn="{StaticResource BorderB}" TargetType="{x:Type Button}">
+    <Style x:Key="AddButtonGrid" BasedOn="{StaticResource BoxButtonBase}" TargetType="{x:Type Button}">
         <Setter Property="Button.Background" Value="#6fad6b"/>
         <Style.Resources>
             <Style TargetType="Label">
@@ -31,7 +31,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="ClassButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BorderB}">
+    <Style x:Key="ClassButtonGrid" TargetType="{x:Type Button}" BasedOn="{StaticResource BoxButtonBase}">
         <Setter Property="Button.Background" Value="#E3B638"/>
         <Style.Resources>
             <Style TargetType="Label">
@@ -47,7 +47,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="СonferenceButton" BasedOn="{StaticResource BorderB}" TargetType="{x:Type Button}">
+    <Style x:Key="СonferenceButtonGrid" BasedOn="{StaticResource BoxButtonBase}" TargetType="{x:Type Button}">
         <Setter Property="Button.Background" Value="#E96E43"/>
         <Style.Resources>
             <Style TargetType="Label">
@@ -62,7 +62,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="EventButton" BasedOn="{StaticResource BorderB}" TargetType="{x:Type Button}">
+    <Style x:Key="EventButtonGrid" BasedOn="{StaticResource BoxButtonBase}" TargetType="{x:Type Button}">
         <Setter Property="Button.Background" Value="#554F5C"/>
         <Style.Resources>
             <Style TargetType="Label">
@@ -78,7 +78,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="Disable" BasedOn="{StaticResource BorderB}" TargetType="{x:Type Button}">
+    <Style x:Key="DisableGrid" BasedOn="{StaticResource BoxButtonBase}" TargetType="{x:Type Button}">
         <Setter Property="Button.Content" Value="&#xf057;" />
         <Setter Property="Button.Foreground" Value="#adb5bd"/>
         <Setter Property="Button.Background" Value="#FFDDDDDD" />
@@ -95,7 +95,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="Current" BasedOn="{StaticResource BorderB}" TargetType="{x:Type Button}">
+    <Style x:Key="CurrentGrid" BasedOn="{StaticResource BoxButtonBase}" TargetType="{x:Type Button}">
         <Setter Property="Button.Content" Value="&#xf144;" />
         <Setter Property="Button.Foreground" Value="White"/>
         <Setter Property="Background" Value="#FFDC2020"/>
@@ -107,17 +107,72 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="NoComplete" >
+    <Style x:Key="NoCompleteGrid" >
         <Setter Property="Button.Content" Value="&#xF0C8;" />
         <Setter Property="Button.Foreground" Value="#FFE96E43"/>
     </Style>
-    <Style x:Key="Complete" >
+    <Style x:Key="CompleteGrid" >
         <Setter Property="Button.Content" Value="&#xf14a;" />
         <Setter Property="Button.Foreground" Value="#6fad6b"/>
     </Style>
-    <Style x:Key="DisComplete" >
+    <Style x:Key="DisCompleteGrid" >
         <Setter Property="Button.Content" Value="&#xf14a;" />
         <Setter Property="Button.Foreground" Value="#adb5bd"/>
+    </Style>
+
+    <Style x:Key="TimeLabel"
+           TargetType="{x:Type Label}">
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="Foreground"
+                Value="#FF2C364D" />
+        <Setter Property="FontFamily"
+                Value="/LK_Teacher;component/Assets/Fonts/#Roboto" />
+
+    </Style>
+
+    <Style x:Key="DayButton"
+           TargetType="{x:Type Button}">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Foreground"
+                Value="#FF2C364D" />
+        <Setter Property="HorizontalAlignment"
+                Value="Stretch" />
+        <Setter Property="VerticalAlignment"
+                Value="Stretch" />
+        <Setter Property="FontFamily"
+                Value="/LK_Teacher;component/Assets/Fonts/#Roboto" />
+        <Setter Property="FontSize"
+                Value="14" />
+        <Setter Property="Height"
+                Value="30" />
+        <Setter Property="Margin"
+                Value="0 10 0 0" />
+        <Setter Property="Background"
+                Value="{x:Null}" />
+        <Setter Property="BorderBrush"
+                Value="{x:Null}" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Foreground"
+                        Value="#FF304066" />
+                <Setter Property="Background"
+                        Value="#07000000" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

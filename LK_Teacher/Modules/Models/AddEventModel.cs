@@ -77,7 +77,7 @@ namespace LK_Teacher.Modules.Models
             int id = DBApi.AddNewEvent(TitleEvent, DateEvent, DescriptionEvent, TypeOfEvent);
             if (id != -1)
             {
-                EventListUpdater.Instance.Publish();
+                EventContainerUpdater.Instance.Publish();
                 EventFormDataHandler.Instance.Publish(id);
             }
         }

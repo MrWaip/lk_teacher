@@ -3,67 +3,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:LK_Teacher.Modules.View"
-             x:Class="LK_Teacher.Modules.View.EventGridForm"
+             x:Class="LK_Teacher.Modules.View.EventGridView"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style x:Key="DayButton"
-               TargetType="{x:Type Button}">
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <Setter Property="Foreground"
-                    Value="#FF2C364D" />
-            <Setter Property="HorizontalAlignment"
-                    Value="Stretch" />
-            <Setter Property="VerticalAlignment"
-                    Value="Stretch" />
-            <Setter Property="FontFamily"
-                    Value="/LK_Teacher;component/Assets/Fonts/#Roboto" />
-            <Setter Property="FontSize"
-                    Value="14" />
-            <!--<Setter Property="Width" Value="auto"/>-->
-            <Setter Property="Height"
-                    Value="30" />
-            <Setter Property="Margin"
-                    Value="0 10 0 0" />
-            <!--<Setter Property="Padding" Value="10 10 10 10"/>-->
-            <Setter Property="Background"
-                    Value="{x:Null}" />
-            <Setter Property="BorderBrush"
-                    Value="{x:Null}" />
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="Foreground"
-                            Value="#FF304066" />
-                    <Setter Property="Background"
-                            Value="#07000000" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="TimeLabel"
-               TargetType="{x:Type Label}">
-            <Setter Property="VerticalAlignment"
-                    Value="Center" />
-            <Setter Property="Foreground"
-                    Value="#FF2C364D" />
-            <Setter Property="FontFamily"
-                    Value="/LK_Teacher;component/Assets/Fonts/#Roboto" />
-
-        </Style>
-    </UserControl.Resources>
-
+    
     <Grid Margin="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -114,7 +56,7 @@
                             Margin="0"
                             Padding="1,1,5,1"
                             Template="{DynamicResource NavButtonGrid}"
-                            Click="btPrevious_Click">
+                            Command="{Binding PreviousDay}">
                         <StackPanel Orientation="Horizontal">
                             <Label Content="&#xF104;"
                                    VerticalAlignment="Center"
@@ -144,7 +86,7 @@
                             Grid.Column="1"
                             Padding="5,1,1,1"
                             Template="{DynamicResource NavButtonGrid}"
-                            Click="btNextWeek_Click">
+                            Command="{Binding NextDay}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="/LK_Teacher;component/Assets/Fonts/#Roboto"
                                        VerticalAlignment="Center"
@@ -176,23 +118,35 @@
                 </Border.Effect>
                 <Grid x:Name="eventGid"
                       Margin="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25*" />
-                        <RowDefinition Height="55*" />
-                        <RowDefinition Height="55*" />
-                        <RowDefinition Height="55*" />
-                        <RowDefinition Height="55*" />
-                        <RowDefinition Height="55*" />
-                        <RowDefinition Height="55*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="55*" />
-                        <ColumnDefinition Width="150*" />
-                        <ColumnDefinition Width="150*" />
-                        <ColumnDefinition Width="150*" />
-                        <ColumnDefinition Width="150*" />
-                        <ColumnDefinition Width="150*" />
-                    </Grid.ColumnDefinitions>
+
+                    <ItemsControl ItemsSource="{Binding EventGrid}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25*" />
+                                        <RowDefinition Height="55*" />
+                                        <RowDefinition Height="55*" />
+                                        <RowDefinition Height="55*" />
+                                        <RowDefinition Height="55*" />
+                                        <RowDefinition Height="55*" />
+                                        <RowDefinition Height="55*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="150*" />
+                                        <ColumnDefinition Width="150*" />
+                                        <ColumnDefinition Width="150*" />
+                                        <ColumnDefinition Width="150*" />
+                                        <ColumnDefinition Width="150*" />
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+
+
                     <!--<Button Content="+" Margin="0" Background="#FFF0FFAB" Foreground="#FFB66F09" BorderBrush="#FFE4C814" FontFamily="Arial" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.567,0.667" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.Column="1" FontWeight="Bold" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Fixed" Padding="0" UseLayoutRounding="False" Grid.Row="1" Height="72" FontSize="48"/>-->
                 </Grid>
             </Border>
@@ -260,13 +214,13 @@
             </Label>
         </StackPanel>
 
-        <local:EventForm x:Name="eventForm"
-                         Grid.Column="1"
-                         Margin="0,45,0,0"
-                         Width="Auto"
-                         MinWidth="230"
-                         MinHeight="430"
-                         Visibility="Hidden" />
+        <ContentControl Content="{Binding EventForm}"
+                        Grid.Column="1"
+                        Margin="0,45,0,0"
+                        Width="Auto"
+                        MinWidth="230"
+                        MinHeight="430"
+                        Grid.Row="1" />
 
     </Grid>
 </UserControl>

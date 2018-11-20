@@ -1,6 +1,6 @@
 ﻿using LK_Teacher.Modules.Utility;
-using LK_Teacher.Modules.Interface;
 using LK_Teacher.Modules.View;
+using LK_Teacher.Modules.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +15,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LK_Teacher.Modules.ViewModel;
 
 namespace LK_Teacher.Modules.View
 {
     /// <summary>
-    /// Логика взаимодействия для EventList.xaml
+    /// Логика взаимодействия для EventGridView.xaml
     /// </summary>
-    public partial class EventListView : UserControl
+    public partial class EventGridView : UserControl
     {
-        public EventListView(DateTime day)
+        public EventGridView(DateTime monday)
         {
+            DataContext = new EventGridViewModel(monday);
             InitializeComponent();
-            DataContext = new EventListViewModel(day);
         }
     }
 }

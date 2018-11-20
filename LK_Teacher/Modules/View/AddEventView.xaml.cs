@@ -18,12 +18,10 @@ using LK_Teacher.Modules.ViewModel;
 namespace LK_Teacher.Modules.View
 {
     /// <summary>
-    /// Логика взаимодействия для AddEvent.xaml
+    /// Логика взаимодействия для AddEventView.xaml
     /// </summary>
     public partial class AddEventView : Window
     {
-        //private IEventItem eventGridItem;
-
         /// <summary>
         /// Инициализируем модальное окно типа AddEventView, для добавления нового события на указанню дату и время
         /// </summary>
@@ -32,79 +30,6 @@ namespace LK_Teacher.Modules.View
         {
             InitializeComponent();
             DataContext = new AddEventViewModel(date_event);
-            //this.eventGridItem = (IEventItem)egi;
-            //labDayWeek.Content = eventGridItem.GetNameDay();
-            //labDate.Content = eventGridItem.DayOfEvent.ToString("dd/MM/yyyy HH:mm");
-            //Console.WriteLine(this.eventGridItem.DayOfEvent.DayOfWeek);
         }
-
-        //private void BtAddEvent_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (DBApi.IsConnection)
-        //    {
-        //        int id = DBApi.AddNewEvent(tbTitle.Text, eventGridItem.DayOfEvent, tbDescription.Text, cbTypeEvent.SelectedIndex);
-        //        if (id != -1)
-        //        {
-        //            eventGridItem.TypeOfEvent = cbTypeEvent.SelectedIndex;
-        //            eventGridItem.IdEvent = id;
-        //            string nameStyleClass = "";
-        //            switch (cbTypeEvent.SelectedIndex)
-        //            {
-        //                case 1:
-        //                    nameStyleClass = "ClassButton";
-        //                    break;
-        //                case 2:
-        //                    nameStyleClass = "СonferenceButton";
-        //                    break;
-        //                case 3:
-        //                    nameStyleClass = "EventButton";
-        //                    break;
-        //            }
-
-        //            eventGridItem.btAction.Style = (Style)eventGridItem.TryFindResource(nameStyleClass);
-        //            eventGridItem.btAction.RemoveHandler(Button.ClickEvent, (RoutedEventHandler)(eventGridItem.PlusButtonClick));
-        //            eventGridItem.btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(eventGridItem.EventButtonClick));
-        //            eventGridItem.tblTitle.Text = tbTitle.Text;
-        //            this.Close();
-        //        }
-        //    }
-        //}
-
-
-        //private void CheckValidData()
-        //{
-        //    if (tbTitle.Text.Length < 5 || cbTypeEvent.SelectedIndex <= 0 || tbDescription.Text.Length < 5)
-        //    {
-        //        btAddEvent.IsEnabled = false;
-        //        if (labValid != null)
-        //        {
-        //            btAddEvent.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#333"));
-        //            labValid.Visibility = Visibility.Visible;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        btAddEvent.IsEnabled = true;
-        //        btAddEvent.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#fff"));
-        //        labValid.Visibility = Visibility.Hidden;
-        //    }
-        //}
-
-
-
-        //private void cbTypeEvent_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    CheckValidData();
-        //}
-
-        //private void tbDescription_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    CheckValidData();
-        //}
-
-        //private void tbTitle_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    CheckValidData();
-        //}
     }
 }

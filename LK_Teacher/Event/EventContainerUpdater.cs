@@ -18,18 +18,18 @@ namespace LK_Teacher.Event
         public TypeOfAction Action { get; set; }
     }
 
-    class EventListUpdater : PubSubEvent
+    class EventContainerUpdater : PubSubEvent
     {
         private static readonly EventAggregator _eventAggregator;
-        private static readonly EventListUpdater _event;
+        private static readonly EventContainerUpdater _event;
 
-        static EventListUpdater()
+        static EventContainerUpdater()
         {
             _eventAggregator = new EventAggregator();
-            _event = _eventAggregator.GetEvent<EventListUpdater>();
+            _event = _eventAggregator.GetEvent<EventContainerUpdater>();
         }
 
-        public static EventListUpdater Instance
+        public static EventContainerUpdater Instance
         {
             get { return _event; }
         }

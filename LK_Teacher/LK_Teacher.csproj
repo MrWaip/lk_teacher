@@ -79,18 +79,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Event\EventFormDataHandler.cs" />
-    <Compile Include="Event\EventListUpdater.cs" />
+    <Compile Include="Event\EventContainerUpdater.cs" />
     <Compile Include="Modules\Models\AddEventModel.cs" />
     <Compile Include="Modules\Models\ChangeEventModel.cs" />
     <Compile Include="Modules\Models\EventFormModel.cs" />
+    <Compile Include="Modules\Models\EventGridItemModel.cs" />
+    <Compile Include="Modules\Models\EventGridModel.cs" />
     <Compile Include="Modules\Models\EventListItemModel.cs" />
     <Compile Include="Modules\Models\EventListModel.cs" />
     <Compile Include="Modules\ViewModel\AddEventViewModel.cs" />
     <Compile Include="Modules\ViewModel\AuthorizationViewModel.cs" />
     <Compile Include="Modules\ViewModel\ChangeEventViewModel.cs" />
+    <Compile Include="Modules\ViewModel\DayButtonViewModel.cs" />
     <Compile Include="Modules\ViewModel\EventFormViewModel.cs" />
+    <Compile Include="Modules\ViewModel\EventGridItemViewModel.cs" />
+    <Compile Include="Modules\ViewModel\EventGridViewModel.cs" />
     <Compile Include="Modules\ViewModel\EventListItemViewModel.cs" />
     <Compile Include="Modules\ViewModel\EventListViewModel.cs" />
+    <Compile Include="Modules\View\DayButtonView.xaml.cs">
+      <DependentUpon>DayButtonView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\View\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
@@ -102,11 +110,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modules\Orgonizer\Content\EventGridItem.xaml">
+    <Page Include="Modules\View\EventGridItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\View\EventGridForm.xaml">
+    <Page Include="Modules\View\DayButtonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\View\EventGridView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,13 +156,13 @@
     <Compile Include="Modules\View\AuthorizationView.xaml.cs">
       <DependentUpon>AuthorizationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Orgonizer\Content\EventGridItem.xaml.cs">
-      <DependentUpon>EventGridItem.xaml</DependentUpon>
+    <Compile Include="Modules\View\EventGridItemView.xaml.cs">
+      <DependentUpon>EventGridItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Interface\IEventForm.cs" />
     <Compile Include="Modules\Interface\IEventItem.cs" />
-    <Compile Include="Modules\View\EventGridForm.xaml.cs">
-      <DependentUpon>EventGridForm.xaml</DependentUpon>
+    <Compile Include="Modules\View\EventGridView.xaml.cs">
+      <DependentUpon>EventGridView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\View\EventListView.xaml.cs">
       <DependentUpon>EventListView.xaml</DependentUpon>
@@ -233,7 +245,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modules\Orgonizer\Modal\" />
     <Folder Include="Modules\Profile\" />
     <Folder Include="Modules\Shell\" />
   </ItemGroup>

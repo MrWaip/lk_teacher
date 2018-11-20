@@ -1,7 +1,4 @@
-﻿using LK_Teacher.Modules.Utility;
-using LK_Teacher.Modules.Interface;
-using LK_Teacher.Modules.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LK_Teacher.Modules.ViewModel;
 
 namespace LK_Teacher.Modules.View
 {
     /// <summary>
-    /// Логика взаимодействия для EventList.xaml
+    /// Логика взаимодействия для DayButtonView.xaml
     /// </summary>
-    public partial class EventListView : UserControl
+    public partial class DayButtonView : UserControl
     {
-        public EventListView(DateTime day)
+        public DayButtonView()
         {
             InitializeComponent();
-            DataContext = new EventListViewModel(day);
         }
     }
 }

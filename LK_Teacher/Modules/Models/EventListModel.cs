@@ -20,9 +20,9 @@ namespace LK_Teacher.Modules.Models
         /// </summary>
         public EventListModel()
         {
-            EventListUpdater.Instance.Subscribe(Update);
+            EventContainerUpdater.Instance.Subscribe(Update);
 
-            CountClasses = UtilFunctions.TimeofEvents.Length;
+            CountClasses = UtilFunctions.TimesOfEvents.Length;
 
             EventList = new ObservableCollection<EventListItem>();
 

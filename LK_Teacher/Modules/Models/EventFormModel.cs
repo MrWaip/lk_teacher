@@ -110,16 +110,7 @@ namespace LK_Teacher.Modules.Models
             {
                 DBApi.DeleteEvent(_IdEvent);
                 IsSetEvent = false;
-                EventListUpdater.Instance.Publish();
-                //eventGridItem.TypeOfEvent = -1;
-                //eventGridItem.btAction.RemoveHandler(Button.ClickEvent, (RoutedEventHandler)eventGridItem.EventButtonClick);
-                //string nameStyleClass;
-                //if (eventGridItem.DayOfEvent >= DateTime.Now)
-                //{
-                //    eventGridItem.btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(eventGridItem.PlusButtonClick));
-                //    nameStyleClass = "PlusButton";
-                //}
-                //else nameStyleClass = "Disable";
+                EventContainerUpdater.Instance.Publish();
             }
 
         }

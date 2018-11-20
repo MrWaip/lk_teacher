@@ -19,7 +19,7 @@ namespace LK_Teacher.Modules.Shell
         //Делегат сигнатуры метода обработчика событий
         public delegate void ActiveEventHandler(DateTime dayEvent);
         //Событие таймера
-        public event ActiveEventHandler TurnOnOff;
+        //public event ActiveEventHandler TurnOnOff;
 
         public ShellViewModel(Hashtable userData)
         {
@@ -73,7 +73,7 @@ namespace LK_Teacher.Modules.Shell
                 return _WeekViewCommand ??
                   (_WeekViewCommand = new RelayCommand(obj =>
                   {
-                      ContentModule = new EventGridForm(UtilFunctions.GetMondayOfCurrentWeek());
+                      ContentModule = new EventGridView(UtilFunctions.GetMondayOfCurrentWeek());
                   }));
             }
         }

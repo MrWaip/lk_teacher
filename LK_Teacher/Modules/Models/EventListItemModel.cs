@@ -65,26 +65,14 @@ namespace LK_Teacher.Modules.Models
         }
 
         //День события
-        private DateTime _DayOfEvent;
-        public DateTime DayOfEvent
+        private DateTime _DateOfEvent;
+        public DateTime DateOfEvent
         {
-            get { return _DayOfEvent; }
+            get { return _DateOfEvent; }
             private set
             {
-                _DayOfEvent = value;
-                OnPropertyChanged("DayOfEvent");
-            }
-        }
-
-        //Номер события \ номер элемента в списке
-        private int _NumberOfEvent;
-        public int NumberOfEvent
-        {
-            get { return _NumberOfEvent; }
-            private set
-            {
-                _NumberOfEvent = value;
-                OnPropertyChanged("NumberOfEvent");
+                _DateOfEvent = value;
+                OnPropertyChanged("DateOfEvent");
             }
         }
 
@@ -153,7 +141,7 @@ namespace LK_Teacher.Modules.Models
         {
             get
             {
-                if (DayOfEvent < DateTime.Now)
+                if (DateOfEvent < DateTime.Now)
                 {
                     if (_IdEvent == -1)
                     {
@@ -181,9 +169,7 @@ namespace LK_Teacher.Modules.Models
 
         public EventListItemModel(DateTime day_event, int number_event)
         {
-            NumberOfEvent = number_event;
-
-            DayOfEvent = day_event.Add(UtilFunctions.TimeofEvents[number_event]);
+            DateOfEvent = day_event.Add(UtilFunctions.TimesOfEvents[number_event]);
 
             ////ParentWindow.TurnOnOff += TurnOnOffHandler;
 
@@ -193,20 +179,20 @@ namespace LK_Teacher.Modules.Models
         public void Initialize()
         {
             //btAction.Tag = this;
-            DateMetaInfo = DayOfEvent.ToString("HH:mm") + " - " + DayOfEvent.Add(new TimeSpan(1, 30, 0)).ToString("HH:mm");
+            DateMetaInfo = DateOfEvent.ToString("HH:mm") + " - " + DateOfEvent.Add(new TimeSpan(1, 30, 0)).ToString("HH:mm");
 
             TitleStyle = "NoMode";
 
             if (DBApi.IsConnection)
             {
-                Hashtable ht = DBApi.GetEventWhereDate(DayOfEvent);
+                Hashtable ht = DBApi.GetEventWhereDate(DateOfEvent);
                 if (ht.Count != 0)
                 {
                     _IdEvent = Convert.ToInt32(ht["id_event"].ToString());
                     StatusEvent = Convert.ToBoolean(ht["status_event"]);
 
                     if (
-                        DayOfEvent.Add(new TimeSpan(1, 30, 0)) < DateTime.Now
+                        DateOfEvent.Add(new TimeSpan(1, 30, 0)) < DateTime.Now
                         &&
                         StatusEvent
                         )
@@ -246,7 +232,7 @@ namespace LK_Teacher.Modules.Models
                     TitleMetaInfo = "Пусто";
                     TypeOfEvent = NONE_TYPE;
 
-                    if (DayOfEvent > DateTime.Now)
+                    if (DateOfEvent > DateTime.Now)
                     {
                         //btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(PlusButtonClick));
                         ActionButtonStyle = "PlusButton";
@@ -268,7 +254,7 @@ namespace LK_Teacher.Modules.Models
 
         public void AddEvent()
         {
-            new AddEventView(DayOfEvent).ShowDialog();
+            new AddEventView(DateOfEvent).ShowDialog();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

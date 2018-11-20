@@ -11,7 +11,9 @@ namespace LK_Teacher.Modules.Utility
     static class UtilFunctions
     {
         //Расписание событий -  Время пар техникума
-        public static TimeSpan[] TimeofEvents = { new TimeSpan(8, 30, 0), new TimeSpan(10, 10, 0), new TimeSpan(12, 10, 0), new TimeSpan(13, 50, 0), new TimeSpan(15, 50, 0), new TimeSpan(17, 30, 0) };
+        public static TimeSpan[] TimesOfEvents = { new TimeSpan(8, 30, 0), new TimeSpan(10, 10, 0), new TimeSpan(12, 10, 0), new TimeSpan(13, 50, 0), new TimeSpan(15, 50, 0), new TimeSpan(17, 30, 0) };
+
+        public static int LengthWorkWeek = 5;
 
         //public static TimeSpan[] TimeOfClasses = { new TimeSpan(19, 8, 0) };
 
@@ -98,14 +100,14 @@ namespace LK_Teacher.Modules.Utility
         //Возвращает Дату и время последней пары сегодня
         public static DateTime LastTimeOfClassToday()
         {
-            DateTime lastTimeOfClassToday = DateTime.Today.Add(TimeofEvents.Last());
+            DateTime lastTimeOfClassToday = DateTime.Today.Add(TimesOfEvents.Last());
             return lastTimeOfClassToday;
         }
 
         //Возвращает время текущего события если такое имеется
         public static TimeSpan TimeOfCurrentClass()
         {
-            foreach (TimeSpan ts in TimeofEvents)
+            foreach (TimeSpan ts in TimesOfEvents)
             {
                 if (DateTime.Now.TimeOfDay >= ts && DateTime.Now.TimeOfDay <= ts.Add(DurationClass))
                 {

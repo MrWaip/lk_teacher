@@ -91,7 +91,7 @@ namespace LK_Teacher.Modules.Models
 
             DBApi.UpdateEvent(_IdEvent, TitleEvent, DateEvent, DescriptionEvent, TypeOfEvent);
             EventFormDataHandler.Instance.Publish(_IdEvent);
-            EventListUpdater.Instance.Publish();
+            EventContainerUpdater.Instance.Publish();
             //            eventGridItem.TypeOfEvent = cbTypeEvent.SelectedIndex;
             //            string nameStyleClass = "";
             //            switch (cbTypeEvent.SelectedIndex)
