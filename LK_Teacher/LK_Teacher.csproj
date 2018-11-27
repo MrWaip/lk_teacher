@@ -78,8 +78,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Event\EventDayReference.cs" />
     <Compile Include="Event\EventFormDataHandler.cs" />
     <Compile Include="Event\EventContainerUpdater.cs" />
+    <Compile Include="Event\EventTimer.cs" />
     <Compile Include="Modules\Models\AddEventModel.cs" />
     <Compile Include="Modules\Models\ChangeEventModel.cs" />
     <Compile Include="Modules\Models\EventFormModel.cs" />
@@ -87,6 +89,9 @@
     <Compile Include="Modules\Models\EventGridModel.cs" />
     <Compile Include="Modules\Models\EventListItemModel.cs" />
     <Compile Include="Modules\Models\EventListModel.cs" />
+    <Compile Include="Modules\Models\ProfileModel.cs" />
+    <Compile Include="Modules\Models\ShellModel.cs" />
+    <Compile Include="Modules\Models\UserModel.cs" />
     <Compile Include="Modules\ViewModel\AddEventViewModel.cs" />
     <Compile Include="Modules\ViewModel\AuthorizationViewModel.cs" />
     <Compile Include="Modules\ViewModel\ChangeEventViewModel.cs" />
@@ -96,6 +101,7 @@
     <Compile Include="Modules\ViewModel\EventGridViewModel.cs" />
     <Compile Include="Modules\ViewModel\EventListItemViewModel.cs" />
     <Compile Include="Modules\ViewModel\EventListViewModel.cs" />
+    <Compile Include="Modules\ViewModel\ProfileViewModel.cs" />
     <Compile Include="Modules\View\DayButtonView.xaml.cs">
       <DependentUpon>DayButtonView.xaml</DependentUpon>
     </Compile>

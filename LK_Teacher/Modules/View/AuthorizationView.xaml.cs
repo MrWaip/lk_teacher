@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LK_Teacher.Modules.Models;
 
 namespace LK_Teacher.Modules.View
 {
@@ -66,7 +67,7 @@ namespace LK_Teacher.Modules.View
             ErrorBox.Visibility = Visibility.Hidden;
             _userData = DBApi.Authorization(EmailInput.Text, PasswordInput.Password);
             string status_profile = (string)_userData["status_profile_teacher"];
-            if (_userData.Count != 0 && (status_profile == DBApi.FIRST_TIME_PROFILE || status_profile == DBApi.ACTIVE_PROFILE))
+            if (_userData.Count != 0 && (status_profile == UserModel.FIRST_TIME_PROFILE || status_profile == UserModel.ACTIVE_PROFILE))
             {
                 if ((bool)RememberMe.IsChecked)
                 {
@@ -74,8 +75,8 @@ namespace LK_Teacher.Modules.View
                     Properties.Settings.Default.CacheEmail = EmailInput.Text;
                     Properties.Settings.Default.Save();
 
-                    DBApi.EMAIL_TEACHER = EmailInput.Text;
-                    DBApi.ID_TEACHER = _userData["id_teacher"].ToString();
+                    //DBApi.EMAIL_TEACHER = EmailInput.Text;
+                    //DBApi.ID_TEACHER = _userData["id_teacher"].ToString();
                 }
                 this.Close();
             }
@@ -85,7 +86,7 @@ namespace LK_Teacher.Modules.View
                 ErrorBox.Visibility = Visibility.Visible;
                 ErrorMesage.Content = "Неверный адрес электронной почты или пароль!";
             }
-            if (_userData.Count != 0 && status_profile == DBApi.WAIT_PROFILE)
+            if (_userData.Count != 0 && status_profile == UserModel.WAIT_PROFILE)
             {
                 ErrorBox.Visibility = Visibility.Visible;
                 ErrorMesage.Content = "Этот профиль не подтвержден администратором!";
@@ -121,5 +122,7 @@ namespace LK_Teacher.Modules.View
             SettingsForm settingsForm = new SettingsForm();
             settingsForm.ShowDialog();
         }
+
+
     }
 }

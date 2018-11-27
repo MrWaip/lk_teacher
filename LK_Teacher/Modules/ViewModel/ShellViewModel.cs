@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using LK_Teacher.Utility;
 using LK_Teacher.Modules.Utility;
+using LK_Teacher.Event;
+using LK_Teacher.Modules.Models;
 
 namespace LK_Teacher.Modules.Shell
 {
@@ -16,18 +18,20 @@ namespace LK_Teacher.Modules.Shell
     {
         private readonly Hashtable UserData;
 
-        //Делегат сигнатуры метода обработчика событий
-        public delegate void ActiveEventHandler(DateTime dayEvent);
+        private ShellModel _SModel; 
+
         //Событие таймера
         //public event ActiveEventHandler TurnOnOff;
 
         public ShellViewModel(Hashtable userData)
         {
+            _SModel = new ShellModel(userData);
+
             UserData = userData;
 
-            //Основная иницализация с формы на сегодня
+            EventDayReference.Instance.Subscribe(FollowToDay);
 
-            if ((string)UserData["status_profile_teacher"] == DBApi.ACTIVE_PROFILE)
+            if ((string)UserData["status_profile_teacher"] == UserModel.ACTIVE_PROFILE)
             {
                 ContentModule = new EventListView(DateTime.Today);
             }
@@ -35,23 +39,16 @@ namespace LK_Teacher.Modules.Shell
             {
                 ContentModule = new ProfileView();
             }
+        }
 
-            //Grid.SetColumn(ContentModule, 1);
-            //Grid.SetRow(ContentModule, 0);
-            //mainGrid.Children.Add(ContentModule);
-
-            ////Задаем таймер
-            //DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            //dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            //dispatcherTimer.Interval = new TimeSpan(500);
-            //TimerUpdater();
-            //dispatcherTimer.Start();
+        private void FollowToDay(DateTime day_event)
+        {
+            ContentModule = new EventListView(day_event);
         }
 
         //Сойства --------------------------------------------------------------------------
 
         private UserControl _ContentModul;
-
         public UserControl ContentModule
         {
             get { return _ContentModul; }

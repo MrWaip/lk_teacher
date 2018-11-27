@@ -2,122 +2,168 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:LK_Teacher.Assets">
     <!--Стили для Сетки-->
-    
+
     <!--Template для кнопок-->
-    <Style x:Key="BoxButtonBase" TargetType="{x:Type Button}">
+    <Style x:Key="BoxButtonBase"
+           TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
-                        <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                          Margin="5,0,0,0" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style x:Key="AddButtonGrid" BasedOn="{StaticResource BoxButtonBase}" TargetType="{x:Type Button}">
-        <Setter Property="Button.Background" Value="#6fad6b"/>
+    <Style x:Key="AddButtonGrid"
+           BasedOn="{StaticResource BoxButtonBase}"
+           TargetType="{x:Type Button}">
+        <Setter Property="Button.Background"
+                Value="#6fad6b" />
         <Style.Resources>
             <Style TargetType="Label">
-                <Setter Property="Label.Content" Value="&#xf0fe;"></Setter>
-                <Setter Property="Label.Foreground" Value="#FF25801F"/>
+                <Setter Property="Label.Content"
+                        Value="&#xf0fe;"></Setter>
+                <Setter Property="Label.Foreground"
+                        Value="#FF25801F" />
             </Style>
         </Style.Resources>
         <Style.Triggers>
-            <Trigger Property="Border.IsMouseOver" Value="True">
-                <Setter Property="Button.Background" Value="#489044"/>
+            <Trigger Property="Border.IsMouseOver"
+                     Value="True">
+                <Setter Property="Button.Background"
+                        Value="#489044" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="ClassButtonGrid" TargetType="{x:Type Button}" BasedOn="{StaticResource BoxButtonBase}">
-        <Setter Property="Button.Background" Value="#E3B638"/>
+    <Style x:Key="ClassButtonGrid"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource BoxButtonBase}">
+        <Setter Property="Button.Background"
+                Value="#E3B638" />
         <Style.Resources>
             <Style TargetType="Label">
-                <Setter Property="Label.Content" Value="&#xF501;"></Setter>
-                <Setter Property="Label.Foreground" Value="#E3B638"/>
+                <Setter Property="Label.Content"
+                        Value="&#xF501;"></Setter>
+                <Setter Property="Label.Foreground"
+                        Value="#E3B638" />
             </Style>
         </Style.Resources>
         <Style.Triggers>
-            <Trigger Property="Border.IsMouseOver" Value="True">
-                <Setter Property="Border.Background" Value="#FAD25F"/>
+            <Trigger Property="Border.IsMouseOver"
+                     Value="True">
+                <Setter Property="Border.Background"
+                        Value="#FAD25F" />
             </Trigger>
-            
+
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="СonferenceButtonGrid" BasedOn="{StaticResource BoxButtonBase}" TargetType="{x:Type Button}">
-        <Setter Property="Button.Background" Value="#E96E43"/>
+    <Style x:Key="СonferenceButtonGrid"
+           BasedOn="{StaticResource BoxButtonBase}"
+           TargetType="{x:Type Button}">
+        <Setter Property="Button.Background"
+                Value="#E96E43" />
         <Style.Resources>
             <Style TargetType="Label">
-                <Setter Property="Label.Content" Value="&#xF0C0;"></Setter>
-                <Setter Property="Label.Foreground" Value="#E96E43"/>
+                <Setter Property="Label.Content"
+                        Value="&#xF0C0;"></Setter>
+                <Setter Property="Label.Foreground"
+                        Value="#E96E43" />
             </Style>
         </Style.Resources>
 
         <Style.Triggers>
-            <Trigger Property="Border.IsMouseOver" Value="True">
-                <Setter Property="Button.Background" Value="#FF916B"/>
+            <Trigger Property="Border.IsMouseOver"
+                     Value="True">
+                <Setter Property="Button.Background"
+                        Value="#FF916B" />
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="EventButtonGrid" BasedOn="{StaticResource BoxButtonBase}" TargetType="{x:Type Button}">
-        <Setter Property="Button.Background" Value="#554F5C"/>
+    <Style x:Key="EventButtonGrid"
+           BasedOn="{StaticResource BoxButtonBase}"
+           TargetType="{x:Type Button}">
+        <Setter Property="Button.Background"
+                Value="#554F5C" />
         <Style.Resources>
             <Style TargetType="Label">
-                <Setter Property="Label.Content" Value="&#xF073;"></Setter>
-                <Setter Property="Label.Foreground" Value="#554F5C"/>
+                <Setter Property="Label.Content"
+                        Value="&#xF073;"></Setter>
+                <Setter Property="Label.Foreground"
+                        Value="#554F5C" />
             </Style>
         </Style.Resources>
-        
+
         <Style.Triggers>
-            <Trigger Property="Border.IsMouseOver" Value="True">
-                <Setter Property="Button.Background" Value="#706A77"/>
+            <Trigger Property="Border.IsMouseOver"
+                     Value="True">
+                <Setter Property="Button.Background"
+                        Value="#706A77" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="DisableGrid" BasedOn="{StaticResource BoxButtonBase}" TargetType="{x:Type Button}">
-        <Setter Property="Button.Content" Value="&#xf057;" />
-        <Setter Property="Button.Foreground" Value="#adb5bd"/>
-        <Setter Property="Button.Background" Value="#FFDDDDDD" />
-        <!--<Style.Resources>
-            <Style TargetType="ToolTip">
-                <Setter Property="ToolTip.Visibility" Value="Hidden"></Setter>
-            </Style>
-        </Style.Resources>-->
+    <Style x:Key="DisableGrid"
+           BasedOn="{StaticResource BoxButtonBase}"
+           TargetType="{x:Type Button}">
+        <Setter Property="Button.Content"
+                Value="&#xf057;" />
+        <Setter Property="Button.Foreground"
+                Value="#adb5bd" />
+        <Setter Property="Button.Background"
+                Value="#FFDDDDDD" />
         <Style.Triggers>
-            <Trigger Property="Border.IsMouseOver" Value="True">
-                <Setter Property="Button.Background" Value="#FFD1D1D1"/>
-            </Trigger>
-
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="CurrentGrid" BasedOn="{StaticResource BoxButtonBase}" TargetType="{x:Type Button}">
-        <Setter Property="Button.Content" Value="&#xf144;" />
-        <Setter Property="Button.Foreground" Value="White"/>
-        <Setter Property="Background" Value="#FFDC2020"/>
-        <Style.Triggers>
-            <Trigger Property="Border.IsMouseOver" Value="True">
-                <Setter Property="Button.Background" Value="#CCDC2020"/>
+            <Trigger Property="Border.IsMouseOver"
+                     Value="True">
+                <Setter Property="Button.Background"
+                        Value="#FFD1D1D1" />
             </Trigger>
 
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="NoCompleteGrid" >
-        <Setter Property="Button.Content" Value="&#xF0C8;" />
-        <Setter Property="Button.Foreground" Value="#FFE96E43"/>
+    <Style x:Key="CurrentGrid"
+           BasedOn="{StaticResource BoxButtonBase}"
+           TargetType="{x:Type Button}">
+        <Setter Property="Button.Content"
+                Value="&#xf144;" />
+        <Setter Property="Button.Foreground"
+                Value="White" />
+        <Setter Property="Background"
+                Value="#FFDC2020" />
+        <Style.Triggers>
+            <Trigger Property="Border.IsMouseOver"
+                     Value="True">
+                <Setter Property="Button.Background"
+                        Value="#CCDC2020" />
+            </Trigger>
+
+        </Style.Triggers>
     </Style>
-    <Style x:Key="CompleteGrid" >
-        <Setter Property="Button.Content" Value="&#xf14a;" />
-        <Setter Property="Button.Foreground" Value="#6fad6b"/>
+
+    <Style x:Key="NoCompleteGrid">
+        <Setter Property="Button.Content"
+                Value="&#xF0C8;" />
+        <Setter Property="Button.Foreground"
+                Value="#FFE96E43" />
     </Style>
-    <Style x:Key="DisCompleteGrid" >
-        <Setter Property="Button.Content" Value="&#xf14a;" />
-        <Setter Property="Button.Foreground" Value="#adb5bd"/>
+    <Style x:Key="CompleteGrid">
+        <Setter Property="Button.Content"
+                Value="&#xf14a;" />
+        <Setter Property="Button.Foreground"
+                Value="#6fad6b" />
+    </Style>
+    <Style x:Key="DisCompleteGrid">
+        <Setter Property="Button.Content"
+                Value="&#xf14a;" />
+        <Setter Property="Button.Foreground"
+                Value="#adb5bd" />
     </Style>
 
     <Style x:Key="TimeLabel"

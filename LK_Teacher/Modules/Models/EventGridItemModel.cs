@@ -1,6 +1,7 @@
 ﻿using LK_Teacher.Event;
 using LK_Teacher.Modules.Utility;
 using LK_Teacher.Modules.View;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections;
@@ -19,6 +20,7 @@ namespace LK_Teacher.Modules.Models
         const int EVENT_TYPE = 3;
 
         private int _IdEvent = -1;
+        private SubscriptionToken _SubToken;
 
         public enum StatusViewEvent
         {
@@ -133,6 +135,8 @@ namespace LK_Teacher.Modules.Models
 
         public EventGridItemModel(DateTime monday_this_week, int col, int row)
         {
+            _SubToken = EventTimer.Instance.Subscribe(CheckCurrentEvent);
+
             AbsoluteCol = col + 1;
             AbsoluteRow = row + 1;
 
@@ -164,9 +168,6 @@ namespace LK_Teacher.Modules.Models
 
                 TypeOfEvent = Convert.ToInt32(ht["type_event"]);
 
-                //btAction.RemoveHandler(Button.ClickEvent, (RoutedEventHandler)(PlusButtonClick));
-                //btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(EventButtonClick));
-
                 TitleEvent = ht["title_event"].ToString(); ;
 
                 switch (TypeOfEvent)
@@ -196,8 +197,6 @@ namespace LK_Teacher.Modules.Models
                 if (DateOfEvent > DateTime.Now)
                 {
                     ActionButtonStyle = "AddButtonGrid";
-                    //btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(PlusButtonClick));
-                    //btAction.Style = (Style)this.TryFindResource(NameStyleClass);
                     TitleEvent = "Добавить событие?";
                     LabelStatusStyle = "NoCompleteGrid";
                 }
@@ -216,9 +215,43 @@ namespace LK_Teacher.Modules.Models
             EventFormDataHandler.Instance.Publish(_IdEvent);
         }
 
+        private void CheckCurrentEvent(EventTimerArgs arg)
+        {
+            if (DateOfEvent == DateTime.Today.Add(arg.CurrentTimeEvent))
+            {
+                if (arg.TimeToEnd.TotalSeconds <= 1)
+                {
+                    switch (TypeOfEvent)
+                    {
+                        case 0:
+                            ActionButtonStyle = "DisableGrid";
+                            break;
+                        case 1:
+                            ActionButtonStyle = "ClassButtonGrid";
+                            break;
+                        case 2:
+                            ActionButtonStyle = "СonferenceButtonGrid";
+                            break;
+                        case 3:
+                            ActionButtonStyle = "EventButtonGrid";
+                            break;
+                    }
+                }
+                else
+                {
+                    ActionButtonStyle = "CurrentGrid";
+                }
+            }
+        }
+
         public void AddEvent()
         {
             new AddEventView(DateOfEvent).ShowDialog();
+        }
+
+        ~EventGridItemModel()
+        {
+            EventTimer.Instance.Unsubscribe(_SubToken);
         }
     }
 }

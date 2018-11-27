@@ -144,7 +144,7 @@
                     Background="#FF2C364D">
 
             <Label x:Name="labClockTitle"
-                   Content=""
+                   Content="{Binding TitleClock}"
                    HorizontalAlignment="Left"
                    Margin="10,0,0,0"
                    FontSize="14"
@@ -170,7 +170,7 @@
                    VerticalContentAlignment="Center"
                    Foreground="#FFEDEEF0"
                    VerticalAlignment="Center"
-                   Visibility="Collapsed"
+                   Visibility="{Binding LabelCloclVisibility}"
                    Padding="5">
                 <Label.Effect>
                     <DropShadowEffect Opacity="0.5"
@@ -178,7 +178,7 @@
                 </Label.Effect>
             </Label>
             <Label x:Name="labTimeToEnd"
-                   Content=""
+                   Content="{Binding TimeToEnd}"
                    Margin="0"
                    FontSize="14"
                    HorizontalAlignment="Right"

@@ -15,7 +15,7 @@
             <FontFamily x:Key="RobotoRegular">/Assets/Fonts/Roboto-Regular.ttf#Roboto Regular</FontFamily>
             <FontFamily x:Key="RobotoBold">/Assets/Fonts/Roboto-Bold.ttf#Roboto Bold</FontFamily>
             <util:StyleConverter x:Key="StyleConverter" />
-            
+
         </ResourceDictionary>
 
     </Application.Resources>

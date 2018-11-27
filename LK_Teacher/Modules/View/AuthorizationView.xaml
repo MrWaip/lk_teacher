@@ -148,7 +148,8 @@
 
         <Button x:Name="CreateNew" Content="Создать аккаунт" HorizontalAlignment="Center" VerticalAlignment="Center"
                 Foreground="#FF2C364D" Margin="50,10" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14"
-                Padding="10" />
+                Padding="10"
+                Click="CreateNew_Click" />
 
     </StackPanel>
 </Window>

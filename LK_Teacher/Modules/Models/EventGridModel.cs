@@ -66,31 +66,23 @@ namespace LK_Teacher.Modules.Models
 
         public void InitializeEventGrid(DateTime monday)
         {
-            //Сохраняем понедельник
             _DateStartWeek = monday;
 
             //Предварительная чистка
             EventGrid.Clear();
 
             //Заголовок
-            TitleString = $"РАСПИСАНИЕ НА {monday.ToString("dd/MM/yyyy")} - {monday.AddDays(6).ToString("dd/MM/yyyy")} - МЕСЯЦ";
+            TitleString = $"РАСПИСАНИЕ НА {monday.ToString("dd/MM/yyyy")} - {monday.AddDays(6).ToString("dd/MM/yyyy")}";
 
             //Инициализация EventGridItemView
 
-            //for (int i = 0; i < WorkWeek; i++)
-            //{
-            //    var button = new Button();
-            //    button.Style = (Style)this.TryFindResource("DayButton");
-            //    button.RemoveHandler(Button.ClickEvent, (RoutedEventHandler)btDayButton_Click);
-            //    button.AddHandler(Button.ClickEvent, new RoutedEventHandler(btDayButton_Click));
-            //    DateTime dayOfWeek = monday.AddDays(i);
-            //    button.Tag = dayOfWeek;
-            //    button.Content = UtilFunctions.DayOfWeek(dayOfWeek);
-            //    Grid.SetColumn(button, i + 1);
-            //    Grid.SetRow(button, 0);
-            //    eventGid.Children.Add(button);
-
-            //}
+            for (int i = 0; i < LengthWorkWeek; i++)
+            {
+                var bt = new DayButtonView(monday.AddDays(i));
+                EventGrid.Add(bt);
+                Grid.SetColumn(bt, i + 1);
+                Grid.SetRow(bt, 0);
+            }
 
             //Сорри, но не целесообразно писать View для этого элемента
             for (int i = 0; i < CountClasses; i++)
@@ -100,7 +92,6 @@ namespace LK_Teacher.Modules.Models
                     Content = new DateTime().Add(UtilFunctions.TimesOfEvents[i]).ToString("HH:mm"),
                     Style = Application.Current.FindResource("TimeLabel") as Style
                 };
-
                 Grid.SetColumn(l, 0);
                 Grid.SetRow(l, i + 1);
                 EventGrid.Add(l);

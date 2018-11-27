@@ -28,17 +28,11 @@ namespace LK_Teacher.Modules.Models
             FINISHED_NOT_INSTALLED, FINISHED_INSTALLED, NOT_FINISHED_NOT_INSTALLED, NOT_FINISHED_INSTALLED
         }
 
-        ////Ссылки ------------------------------------------------
-
-        ////Ссылка на родительское окно
-        //public ShellView ParentWindow { get; private set; }
-
-        //public EventForm EventForm { get; private set; }
-
-        ////Свойства -----------------------------------
+        //Свойства -----------------------------------
 
         //Id события
         private int _IdEvent = -1;
+        private SubscriptionToken _SubToken;
 
         //Тип события
         private int _TypeOfEvent = NONE_TYPE;
@@ -99,7 +93,7 @@ namespace LK_Teacher.Modules.Models
                 OnPropertyChanged("TitleMetaInfo");
             }
         }
-        
+
         //Имя стиля для кнопки основной кнопки
         private string _ActionButtonStyle;
         public string ActionButtonStyle
@@ -170,15 +164,12 @@ namespace LK_Teacher.Modules.Models
         public EventListItemModel(DateTime day_event, int number_event)
         {
             DateOfEvent = day_event.Add(UtilFunctions.TimesOfEvents[number_event]);
-
-            ////ParentWindow.TurnOnOff += TurnOnOffHandler;
-
+            _SubToken = EventTimer.Instance.Subscribe(CheckCurrentEvent);
             Initialize();
         }
 
         public void Initialize()
         {
-            //btAction.Tag = this;
             DateMetaInfo = DateOfEvent.ToString("HH:mm") + " - " + DateOfEvent.Add(new TimeSpan(1, 30, 0)).ToString("HH:mm");
 
             TitleStyle = "NoMode";
@@ -234,7 +225,6 @@ namespace LK_Teacher.Modules.Models
 
                     if (DateOfEvent > DateTime.Now)
                     {
-                        //btAction.AddHandler(Button.ClickEvent, new RoutedEventHandler(PlusButtonClick));
                         ActionButtonStyle = "PlusButton";
                         LabelStatusStyle = "NoComplete";
                     }
@@ -257,6 +247,30 @@ namespace LK_Teacher.Modules.Models
             new AddEventView(DateOfEvent).ShowDialog();
         }
 
+        private void CheckCurrentEvent(EventTimerArgs arg)
+        {
+            if (DateOfEvent == DateTime.Today.Add(arg.CurrentTimeEvent))
+            {
+                if (arg.TimeToEnd.TotalSeconds <= 0)
+                {
+                    if (TypeOfEvent == NONE_TYPE)
+                    {
+                        LabelStatusStyle = "DisComplete";
+                    }
+                    else
+                    {
+                        LabelStatusStyle = "Complete";
+                    }
+                    TitleStyle = "NoMode";
+                }
+                else
+                {
+                    LabelStatusStyle = "EventNow";
+                    TitleStyle = "ActiveMode";
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
@@ -264,5 +278,9 @@ namespace LK_Teacher.Modules.Models
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
+        ~EventListItemModel()
+        {
+            EventTimer.Instance.Unsubscribe(_SubToken);
+        }
     }
 }

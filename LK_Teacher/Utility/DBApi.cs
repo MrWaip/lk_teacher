@@ -1,4 +1,5 @@
-﻿using LK_Teacher.Modules.Utility;
+﻿using LK_Teacher.Modules.Models;
+using LK_Teacher.Modules.Utility;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
@@ -12,17 +13,7 @@ namespace LK_Teacher.Modules.Utility
 {
     public static class DBApi
     {
-        public const string ACTIVE_PROFILE = "active";
-
-        public const string WAIT_PROFILE = "wait";
-
-        public const string FIRST_TIME_PROFILE = "first_time";
-
         private static MySqlConnection connection = null;
-
-        public static string EMAIL_TEACHER { get; set; }
-
-        public static string ID_TEACHER { get; set; }
 
         public static string ConnectionString { get; private set; } = null;
 
@@ -58,7 +49,7 @@ namespace LK_Teacher.Modules.Utility
             try
             {
                 connection.Open();
-                string query = $"INSERT INTO events (id_event ,title_event ,date_event ,description_event ,type_event,status_event,id_teacher) VALUES (  0 ,'{title}' , '{dateTimeEvent.ToString("yyyy-MM-dd H:mm:ss")}','{description}' ,{typeEvent}, true, '{ID_TEACHER}');";
+                string query = $"INSERT INTO events (id_event ,title_event ,date_event ,description_event ,type_event,status_event,id_teacher) VALUES (  0 ,'{title}' , '{dateTimeEvent.ToString("yyyy-MM-dd H:mm:ss")}','{description}' ,{typeEvent}, true, '{UserModel.IdTeacher}');";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.ExecuteNonQuery();
                 command = new MySqlCommand("SELECT LAST_INSERT_ID();",connection);
@@ -114,7 +105,7 @@ namespace LK_Teacher.Modules.Utility
         {
             var hashTable = new Hashtable();
             connection.Open();
-            string query = $"SELECT * from events where date_event = '{dateTimeEvent.ToString("yyyy-MM-dd H:mm:ss")}' and id_teacher = '{ID_TEACHER}';";
+            string query = $"SELECT * from events where date_event = '{dateTimeEvent.ToString("yyyy-MM-dd H:mm:ss")}' and id_teacher = '{UserModel.IdTeacher}';";
             MySqlCommand command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             // читаем результат
@@ -156,7 +147,7 @@ namespace LK_Teacher.Modules.Utility
         {
             var hashTable = new Hashtable();
             connection.Open();
-            string query = $"SELECT * from events where id_event = {idEvent} and id_teacher = '{ID_TEACHER}';";
+            string query = $"SELECT * from events where id_event = {idEvent} and id_teacher = '{UserModel.IdTeacher}';";
             MySqlCommand command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             // читаем результат
@@ -170,6 +161,87 @@ namespace LK_Teacher.Modules.Utility
             reader.Close();
             connection.Close();
             return hashTable;
+        }
+
+        public static List<Hashtable> GetSubjects(int id_direction)
+        {
+            var list = new List<Hashtable>();
+            Hashtable hashtable;
+
+            connection.Open();
+            string query = $"SELECT * from subjects where id_direction = '{id_direction}';";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            // читаем результат
+            while (reader.Read())
+            {
+                hashtable = new Hashtable();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    hashtable.Add(reader.GetName(i), reader[i].ToString());
+                }
+                list.Add(hashtable);
+            }
+            reader.Close();
+            connection.Close();
+            return list;
+        }
+
+        public static Hashtable GetTeacherData(int id_teacher)
+        {
+            var hashTable = new Hashtable();
+            connection.Open();
+            string query = $"SELECT  id_teacher, email_teacher, login_teacher, fname_teacher, lname_teacher, mname_teacher, phone_number_teacher, status_profile_teacher, image_profile_teacher, date_birth_teacher, quote_teacher, name_direction  from teachers INNER JOIN directions ON id_direction = id_direction_teacher where id_teacher =  {id_teacher};";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            // читаем результат
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    hashTable.Add(reader.GetName(i), reader[i].ToString());
+                }
+            }
+            reader.Close();
+            connection.Close();
+            return hashTable;
+        }
+
+        public static string GetDirectionName(int id_direction)
+        {
+            string result = "";
+            connection.Open();
+            string query = $"SELECT name_direction from directions where id_direction = {id_direction};";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            // читаем результат
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    result = reader[i].ToString();
+                }
+            }
+            reader.Close();
+            connection.Close();
+            return result;
+        }
+
+        public static bool HasSubject(int id_teacher, int id_subject)
+        {
+            bool result =  false;
+            connection.Open();
+            string query = $"SELECT * from teachers_subjects where id_teacher = {id_teacher} and id_subject = {id_subject};";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                result = true;
+            }
+            reader.Close();
+            connection.Close();
+            return result;
+
         }
 
         //Update query

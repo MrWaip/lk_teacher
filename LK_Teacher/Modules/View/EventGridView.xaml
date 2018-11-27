@@ -19,7 +19,7 @@
                    FontFamily="/LK_Teacher;component/Assets/Fonts/#Roboto"
                    FontSize="16"
                    Foreground="#FF2C364D"
-                   Text="РАСПИСАНИЕ НА 29.11.18 - ПЯТНИЦА"
+                   Text="{Binding TitleString}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center" />
         <StackPanel Margin="10,40,2.5,0"
@@ -144,10 +144,6 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
-
-
-
-                    <!--<Button Content="+" Margin="0" Background="#FFF0FFAB" Foreground="#FFB66F09" BorderBrush="#FFE4C814" FontFamily="Arial" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.567,0.667" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.Column="1" FontWeight="Bold" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Fixed" Padding="0" UseLayoutRounding="False" Grid.Row="1" Height="72" FontSize="48"/>-->
                 </Grid>
             </Border>
         </StackPanel>
@@ -173,7 +169,7 @@
                    FontSize="14"
                    FontWeight="Bold"
                    Foreground="#FFEDEEF0"
-                   Content=""
+                   Content="{Binding TitleClock}"
                    BorderBrush="#FFBF2C2C">
                 <Label.Effect>
                     <DropShadowEffect Opacity="0.5"
@@ -183,7 +179,7 @@
             <Label x:Name="lbClock"
                    VerticalContentAlignment="Center"
                    VerticalAlignment="Center"
-                   Visibility="Collapsed"
+                   Visibility="{Binding LabelCloclVisibility}"
                    Padding="5"
                    Margin="0,0,0,0"
                    HorizontalAlignment="Left"
@@ -206,7 +202,7 @@
                    FontSize="14"
                    FontWeight="Bold"
                    Foreground="#FFEDEEF0"
-                   Content="">
+                   Content="{Binding TimeToEnd}">
                 <Label.Effect>
                     <DropShadowEffect Opacity="0.5"
                                       ShadowDepth="4" />

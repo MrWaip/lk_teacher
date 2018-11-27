@@ -15,10 +15,10 @@ namespace LK_Teacher.Modules.Utility
 
         public static int LengthWorkWeek = 5;
 
-        //public static TimeSpan[] TimeOfClasses = { new TimeSpan(19, 8, 0) };
+        //public static TimeSpan[] TimesOfEvents = { new TimeSpan(17, 36, 0), new TimeSpan(19,29,0) };
 
         //Константное время одного события
-        public static readonly TimeSpan DurationClass = new TimeSpan(1,30,0);
+        public static readonly TimeSpan DurationEvent = new TimeSpan(1,30,0);
 
         //Время завершения последнего события с поправкой на отключение системы
         public static readonly TimeSpan EndLastClass = new TimeSpan(1, 30, 1);
@@ -105,11 +105,11 @@ namespace LK_Teacher.Modules.Utility
         }
 
         //Возвращает время текущего события если такое имеется
-        public static TimeSpan TimeOfCurrentClass()
+        public static TimeSpan TimeOfCurrentEvent()
         {
             foreach (TimeSpan ts in TimesOfEvents)
             {
-                if (DateTime.Now.TimeOfDay >= ts && DateTime.Now.TimeOfDay <= ts.Add(DurationClass))
+                if (DateTime.Now.TimeOfDay >= ts && DateTime.Now.TimeOfDay <= ts.Add(DurationEvent))
                 {
                     return ts;
                 }

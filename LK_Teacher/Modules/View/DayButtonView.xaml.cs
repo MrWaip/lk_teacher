@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LK_Teacher.Modules.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace LK_Teacher.Modules.View
     /// </summary>
     public partial class DayButtonView : UserControl
     {
-        public DayButtonView()
+        public DayButtonView(DateTime day_event)
         {
             InitializeComponent();
+            DataContext = new DayButtonViewModel(day_event);
         }
     }
 }

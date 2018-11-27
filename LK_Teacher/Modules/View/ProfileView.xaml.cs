@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LK_Teacher.Modules.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace LK_Teacher.Modules.View
         public ProfileView()
         {
             InitializeComponent();
+            DataContext = new ProfileViewModel();
         }
     }
 }
