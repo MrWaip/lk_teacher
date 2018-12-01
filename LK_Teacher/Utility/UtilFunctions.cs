@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace LK_Teacher.Modules.Utility
         //public static TimeSpan[] TimesOfEvents = { new TimeSpan(17, 36, 0), new TimeSpan(19,29,0) };
 
         //Константное время одного события
-        public static readonly TimeSpan DurationEvent = new TimeSpan(1,30,0);
+        public static readonly TimeSpan DurationEvent = new TimeSpan(1, 30, 0);
 
         //Время завершения последнего события с поправкой на отключение системы
         public static readonly TimeSpan EndLastClass = new TimeSpan(1, 30, 1);
@@ -33,7 +34,7 @@ namespace LK_Teacher.Modules.Utility
         /// 3 = Мероприятие.
         /// </param>
         /// <returns></returns>
-        public static string GetTypeEvent( int TypeOfEvent)
+        public static string GetTypeEvent(int TypeOfEvent)
         {
             switch (TypeOfEvent)
             {
@@ -150,12 +151,12 @@ namespace LK_Teacher.Modules.Utility
 
         public static string FormatPhoneNumber(string phoneNumber)
         {
-            string strPattern = @"(\+7|8|\b)[\(\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[)\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)";
+            string strPattern = @"(\+7|8|7|\b)[\(\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[)\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)[\s-]*(\d)";
 
             return Regex.Replace(phoneNumber, "^" + strPattern + "$", "+7($2$3$4)$5$6$7-$8$9-$10$11");
         }
 
-        private static readonly Regex _regex = new Regex("[^0-9]+"); 
+        private static readonly Regex _regex = new Regex("[^0-9]+");
 
         public static bool IsTextAllowed(string text)
         {
@@ -242,6 +243,22 @@ namespace LK_Teacher.Modules.Utility
         {
             int result;
             return int.TryParse(id, out result) ? result : -1;
+        }
+
+        //Работа с файлами
+
+        public static string OpenImage()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png"
+            };
+
+            string result = "";
+
+            if (openFileDialog.ShowDialog() == true)
+                result = openFileDialog.FileName;
+            return result;
         }
 
     }

@@ -1,9 +1,12 @@
 ﻿using LK_Teacher.Modules.Models;
+using LK_Teacher.Utility;
+using Microsoft.Win32;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +54,25 @@ namespace LK_Teacher.Modules.ViewModel
                 }
                 else return _PModel.Quote;
             }
+            set
+            {
+                _PModel.Quote = value;
+            }
+        }
+        public string ImagePath
+        {
+            get
+            {
+                if (_PModel.ImagePath != "")
+                {
+                    return _PModel.ImagePath;
+                }
+                else return @"\Assets\Images\img_avatar.png";
+            }
+            set
+            {
+                _PModel.ImagePath = value;
+            }
         }
         public string FullName
         {
@@ -59,28 +81,33 @@ namespace LK_Teacher.Modules.ViewModel
                 return _PModel.FullName;
             }
         }
+        public string Education
+        {
+            get
+            {
+                return _PModel.Education;
+            }
+            set
+            {
+                _PModel.Education = value;
+            }
+        }
 
         public string PhoneNumber
         {
             get { return _PModel.PhoneNumber; }
             set { _PModel.PhoneNumber = value; }
         }
-        public string DateBirth
+        public DateTime DateBirth
         {
             get
             {
-                if (_PModel.DateBirth.Year != 1)
-                {
-                    return _PModel.DateBirth.ToShortDateString();
-                }
-                else
-                {
-                    return "";
-                }
+                return _PModel.DateBirth;
+
             }
             set
             {
-                _PModel.DateBirth = DateTime.Parse(value);
+                _PModel.DateBirth = value;
             }
         }
 
@@ -91,12 +118,44 @@ namespace LK_Teacher.Modules.ViewModel
                return _PModel.SubjectList;
             }
         }
-
+        public ObservableCollection<CheckBox> DirectionList
+        {
+            get
+            {
+               return _PModel.DirectionList;
+            }
+        }
 
         public ProfileViewModel()
         {
             _PModel = new ProfileModel();
             _PModel.PropertyChanged += ModelPropertyChanged;
+        }
+
+        private RelayCommand _SaveCommand;
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return _SaveCommand ??
+                  (_SaveCommand = new RelayCommand(obj =>
+                  {
+                      _PModel.SaveChanges();
+                  }));
+            }
+        }
+
+        private RelayCommand _AddNewPhoto;
+        public RelayCommand AddNewPhoto
+        {
+            get
+            {
+                return _AddNewPhoto ??
+                  (_AddNewPhoto = new RelayCommand(obj =>
+                  {
+                      _PModel.NewPhoto();
+                  }));
+            }
         }
 
         public void ModelPropertyChanged(object sender, PropertyChangedEventArgs e)

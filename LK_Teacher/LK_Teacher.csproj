@@ -45,6 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -90,6 +93,7 @@
     <Compile Include="Modules\Models\EventListItemModel.cs" />
     <Compile Include="Modules\Models\EventListModel.cs" />
     <Compile Include="Modules\Models\ProfileModel.cs" />
+    <Compile Include="Modules\Models\RegistrationModel.cs" />
     <Compile Include="Modules\Models\ShellModel.cs" />
     <Compile Include="Modules\Models\UserModel.cs" />
     <Compile Include="Modules\ViewModel\AddEventViewModel.cs" />
@@ -102,6 +106,7 @@
     <Compile Include="Modules\ViewModel\EventListItemViewModel.cs" />
     <Compile Include="Modules\ViewModel\EventListViewModel.cs" />
     <Compile Include="Modules\ViewModel\ProfileViewModel.cs" />
+    <Compile Include="Modules\ViewModel\RegistrationViewModel.cs" />
     <Compile Include="Modules\View\DayButtonView.xaml.cs">
       <DependentUpon>DayButtonView.xaml</DependentUpon>
     </Compile>
@@ -165,8 +170,6 @@
     <Compile Include="Modules\View\EventGridItemView.xaml.cs">
       <DependentUpon>EventGridItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Interface\IEventForm.cs" />
-    <Compile Include="Modules\Interface\IEventItem.cs" />
     <Compile Include="Modules\View\EventGridView.xaml.cs">
       <DependentUpon>EventGridView.xaml</DependentUpon>
     </Compile>
@@ -195,11 +198,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modules\Registration\RegistrationForm.xaml">
+    <Page Include="Modules\View\RegistrationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modules\Settings\SettingsForm.xaml">
+    <Page Include="Modules\View\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,11 +216,11 @@
     <Compile Include="Modules\View\EventListItem.xaml.cs">
       <DependentUpon>EventListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Registration\RegistrationForm.xaml.cs">
-      <DependentUpon>RegistrationForm.xaml</DependentUpon>
+    <Compile Include="Modules\View\RegistrationView.xaml.cs">
+      <DependentUpon>RegistrationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Settings\SettingsForm.xaml.cs">
-      <DependentUpon>SettingsForm.xaml</DependentUpon>
+    <Compile Include="Modules\View\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -250,12 +253,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\Profile\" />
-    <Folder Include="Modules\Shell\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Assets\Icons\bars.svg" />
+    <Resource Include="Assets\Images\books_bg.jpg" />
+    <Resource Include="Assets\Images\img_avatar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

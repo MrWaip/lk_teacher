@@ -65,19 +65,53 @@
                          Value="True">
                     <Setter Property="Background"
                             TargetName="border"
-                            Value="#FFBEE6FD" />
-                    <Setter Property="BorderBrush"
-                            TargetName="border"
-                            Value="#FF3C7FB1" />
+                            Value="#CC1ABC9C" />
                 </Trigger>
                 <Trigger Property="IsPressed"
                          Value="True">
                     <Setter Property="Background"
                             TargetName="border"
-                            Value="#FFC4E5F6" />
-                    <Setter Property="BorderBrush"
-                            TargetName="border"
-                            Value="#FF2C628B" />
+                            Value="#E51ABC9C" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ButtonAvatar"
+                         TargetType="{x:Type Button}">
+            <Border x:Name="border"
+                    CornerRadius="80"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    SnapsToDevicePixels="True">
+                <Grid>
+                    <Border x:Name="hover"
+                            Opacity="0"
+                            Background="Black"
+                            CornerRadius="100">
+                    </Border>
+                    <!--<ContentPresenter x:Name="contentPresenter"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                      Focusable="False"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}"
+                                      RecognizesAccessKey="True"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />-->
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <DataTrigger Binding="{ Binding ElementName=hover, Path=IsMouseOver }"
+                             Value="True">
+                    <Setter TargetName="hover"
+                            Property="Opacity"
+                            Value="0.1" />
+                </DataTrigger>
+                <Trigger Property="IsPressed"
+                         Value="True">
+
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -111,7 +145,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Border x:Name="Avatar"
+                    <Button x:Name="Avatar"
                             BorderBrush="White"
                             BorderThickness="4"
                             HorizontalAlignment="Center"
@@ -119,16 +153,15 @@
                             Margin="0,70,0,0"
                             VerticalAlignment="Top"
                             Width="130"
-                            CornerRadius="100"
-                            Panel.ZIndex="1">
-                        <Border.Background>
-                            <ImageBrush Stretch="UniformToFill">
-                                <ImageBrush.ImageSource>
-                                    <ImageSource>http://colormind.io/template/paper-dashboard/paper-dashboard/assets/img/faces/face-2.jpg</ImageSource>
-                                </ImageBrush.ImageSource>
-                            </ImageBrush>
-                        </Border.Background>
-                    </Border>
+                            Panel.ZIndex="1"
+                            Template="{DynamicResource ButtonAvatar}"
+                            Cursor="Hand"
+                            Command="{Binding AddNewPhoto}">
+                        <Button.Background>
+                            <ImageBrush Stretch="UniformToFill"
+                                        ImageSource="{Binding ImagePath}" />
+                        </Button.Background>
+                    </Button>
                     <Border x:Name="AvatarBG"
                             BorderThickness="0"
                             Height="149"
@@ -138,12 +171,13 @@
                             CornerRadius="9">
                         <Border.Background>
                             <ImageBrush Stretch="UniformToFill"
-                                        ImageSource="https://cdn.pixabay.com/photo/2015/03/26/09/44/books-690219_960_720.jpg" />
+                                        ImageSource="/Assets/Images/books_bg.jpg" />
                         </Border.Background>
                         <Border.BorderBrush>
                             <ImageBrush />
                         </Border.BorderBrush>
                     </Border>
+
                     <Label x:Name="FIO"
                            Content="{Binding FullName}"
                            HorizontalAlignment="Center"
@@ -153,18 +187,23 @@
                            FontSize="16"
                            Foreground="#FF403D39"
                            HorizontalContentAlignment="Stretch" />
-                    <TextBlock x:Name="Quote"
-                               Text="{Binding Quote}"
-                               HorizontalAlignment="Center"
-                               Margin="0,15"
-                               TextWrapping="Wrap"
-                               VerticalAlignment="Top"
-                               Grid.Row="2"
-                               Width="190"
-                               LineHeight="7"
-                               TextAlignment="Center"
-                               FontSize="16"
-                               Foreground="#FF2B5BAA" />
+
+                    <TextBox x:Name="Quote"
+                             Text="{Binding Quote}"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Top"
+                             TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             FontSize="16"
+                             Foreground="#FF2B5BAA"
+                             Margin="0,15"
+                             Width="190"
+                             Grid.Row="3"
+                             Background="{x:Null}"
+                             BorderBrush="{x:Null}"
+                             Cursor="Hand"
+                             BorderThickness="0" />
+
                     <Border BorderBrush="#FFDBDBDB"
                             BorderThickness="0,1,0,0"
                             Margin="10,5,10,0"
@@ -187,54 +226,62 @@
                                Margin="0"
                                VerticalAlignment="Center"
                                FontSize="16"
-                               Foreground="#FF252422" />
+                               Foreground="#FF252422"
+                               Visibility="Collapsed" />
                         <Label Content="Files"
                                HorizontalAlignment="Center"
                                Margin="0"
                                VerticalAlignment="Top"
                                Grid.Row="1"
-                               Foreground="#FF9C9C9C" />
+                               Foreground="#FF9C9C9C"
+                               Visibility="Collapsed" />
                         <Label Content="2GB"
                                HorizontalAlignment="Center"
                                Margin="0"
                                VerticalAlignment="Center"
                                FontSize="16"
-                               Grid.Column="1" />
+                               Grid.Column="1"
+                               Visibility="Collapsed" />
                         <Label Content="Traffic"
                                HorizontalAlignment="Center"
                                Margin="0"
                                VerticalAlignment="Top"
                                Grid.Row="1"
                                Foreground="#FF9C9C9C"
-                               Grid.Column="1" />
+                               Grid.Column="1"
+                               Visibility="Collapsed" />
                         <Label Content="2GB"
                                HorizontalAlignment="Center"
                                Margin="25.5,0.5"
                                VerticalAlignment="Center"
                                FontSize="16"
                                Grid.Column="1"
-                               Foreground="#FF252422" />
+                               Foreground="#FF252422"
+                               Visibility="Collapsed" />
                         <Label Content="Traffic"
                                HorizontalAlignment="Center"
                                Margin="23.5,0"
                                VerticalAlignment="Top"
                                Grid.Row="1"
                                Foreground="#FF9C9C9C"
-                               Grid.Column="1" />
+                               Grid.Column="1"
+                               Visibility="Collapsed" />
                         <Label Content="13.2"
                                HorizontalAlignment="Center"
                                Margin="0"
                                VerticalAlignment="Center"
                                FontSize="16"
                                Grid.Column="2"
-                               Foreground="#FF252422" />
+                               Foreground="#FF252422"
+                               Visibility="Collapsed" />
                         <Label Content="Meta"
                                HorizontalAlignment="Center"
                                Margin="0"
                                VerticalAlignment="Top"
                                Grid.Row="1"
                                Foreground="#FF9C9C9C"
-                               Grid.Column="2" />
+                               Grid.Column="2"
+                               Visibility="Collapsed" />
                     </Grid>
                 </Grid>
             </Border>
@@ -290,6 +337,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Label Content="E-mail"
                                Padding="0"
@@ -308,7 +356,8 @@
                                  Text="{Binding Email}"
                                  Template="{DynamicResource ProfileTextBoxes}"
                                  Margin="0,0,0,15"
-                                 Grid.Column="1" />
+                                 Grid.Column="1"
+                                 IsEnabled="False" />
 
                         <Label Content="Имя"
                                Grid.Row="1"
@@ -370,28 +419,22 @@
                                  Template="{DynamicResource ProfileTextBoxes}"
                                  Margin="0,0,0,15"
                                  Grid.Column="1" />
-                        <Label Content="Направление"
+                        <Label Content="Направления"
                                Grid.Row="4"
                                Padding="0"
                                Margin="10,9.5,30,24.5"
                                Foreground="#FF292B2C"
                                VerticalAlignment="Center"
                                FontSize="14" />
-                        <TextBox x:Name="direction"
-                                 Text="{Binding Direction}"
-                                 IsEnabled="False"
-                                 TextWrapping="Wrap"
-                                 Grid.Row="4"
-                                 FontSize="14"
-                                 Padding="10,7,15,7"
-                                 Background="{x:Null}"
-                                 Foreground="#FF464A4C"
-                                 BorderThickness="2"
-                                 BorderBrush="#26000000"
-                                 Template="{DynamicResource ProfileTextBoxes}"
+                        <ListBox x:Name="direction_list"
+                                 ItemsSource="{Binding DirectionList}"
+                                 Grid.Column="1"
                                  Margin="0,0,0,15"
-                                 Grid.Column="1" />
-                        
+                                 Grid.Row="4"
+                                 Padding="10,4,15,4"
+                                 BorderBrush="#26000000"
+                                 BorderThickness="2" />
+
                         <Label Content="Номер телефон"
                                Grid.Row="5"
                                Padding="0"
@@ -419,21 +462,8 @@
                                Foreground="#FF292B2C"
                                VerticalAlignment="Center"
                                FontSize="14" />
-                        <Button Content="Сохранить"
-                                Grid.Column="1"
-                                HorizontalAlignment="Right"
-                                Margin="0,0,0,20"
-                                Grid.Row="8"
-                                VerticalAlignment="Top"
-                                Padding="13,7"
-                                Template="{DynamicResource PrimaryButtonProfile}"
-                                Background="#FF1ABC9C"
-                                Foreground="White"
-                                BorderBrush="{x:Null}"
-                                BorderThickness="0"
-                                FontSize="14" />
                         <DatePicker x:Name="date_birth"
-                                    Text="{Binding DateBirth}"
+                                    SelectedDate="{Binding DateBirth}"
                                     Grid.Column="1"
                                     Margin="0,0,0,15"
                                     Grid.Row="6"
@@ -458,10 +488,59 @@
                                Foreground="#FF292B2C"
                                VerticalAlignment="Center"
                                FontSize="14" />
-
+                        <Label Content="Образование"
+                               Grid.Row="8"
+                               Padding="0"
+                               Margin="10,9.5,30,24.5"
+                               Foreground="#FF292B2C"
+                               VerticalAlignment="Center"
+                               FontSize="14" />
+                        <TextBox x:Name="education"
+                                 Text="{Binding Education}"
+                                 TextWrapping="Wrap"
+                                 Grid.Row="8"
+                                 FontSize="14"
+                                 Padding="10,7,15,7"
+                                 Background="{x:Null}"
+                                 Foreground="#FF464A4C"
+                                 BorderThickness="2"
+                                 BorderBrush="#26000000"
+                                 Template="{DynamicResource ProfileTextBoxes}"
+                                 Margin="0,0,0,15"
+                                 Grid.Column="1" />
+                        <Button Content="Сохранить"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,0,20"
+                                Grid.Row="9"
+                                VerticalAlignment="Top"
+                                Padding="13,7"
+                                Template="{DynamicResource PrimaryButtonProfile}"
+                                Background="#FF1ABC9C"
+                                Foreground="White"
+                                BorderBrush="{x:Null}"
+                                BorderThickness="0"
+                                FontSize="14"
+                                Command="{Binding SaveCommand}"
+                                Cursor="Hand" />
                     </Grid>
                 </StackPanel>
             </Border>
+            <Popup Margin="0"
+                   RenderTransformOrigin="0.789,-1.24"
+                   IsOpen="True"
+                   Placement="Center"
+                   Grid.Row="1"
+                   Grid.Column="1">
+                <Popup.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform AngleY="-0.477" />
+                        <RotateTransform />
+                        <TranslateTransform Y="-1.565" />
+                    </TransformGroup>
+                </Popup.RenderTransform>
+            </Popup>
         </Grid>
     </ScrollViewer>
 </UserControl>

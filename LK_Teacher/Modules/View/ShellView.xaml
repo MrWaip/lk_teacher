@@ -106,6 +106,34 @@
                                    Text="Расписание на неделю" />
                     </StackPanel>
                 </Button>
+                <Button x:Name="profile"
+                        Padding="10"
+                        Background="{x:Null}"
+                        HorizontalContentAlignment="Left"
+                        Margin="2,4"
+                        BorderBrush="{x:Null}"
+                        Foreground="White"
+                        FontSize="14"
+                        FontFamily="/LK_Teacher;component/Assets/Fonts/#Roboto"
+                        VerticalAlignment="Top"
+                        Template="{DynamicResource LeftMenuButtons}"
+                        UseLayoutRounding="False"
+                        Command="{Binding ProfileCommand}">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.5"
+                                          ShadowDepth="4" />
+                    </Button.Effect>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf2bb;"
+                                   Width="16"
+                                   Height="16"
+                                   Margin="0,0,5,0"
+                                   FontFamily="/LK_Teacher;component/Assets/Fonts/#Font Awesome 5 Free Solid"
+                                   FontSize="14" />
+                        <TextBlock TextDecorations="{x:Null}"
+                                   Text="Личный профиль" />
+                    </StackPanel>
+                </Button>
 
             </StackPanel>
         </Grid>

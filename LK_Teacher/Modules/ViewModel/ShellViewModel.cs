@@ -18,10 +18,7 @@ namespace LK_Teacher.Modules.Shell
     {
         private readonly Hashtable UserData;
 
-        private ShellModel _SModel; 
-
-        //Событие таймера
-        //public event ActiveEventHandler TurnOnOff;
+        private ShellModel _SModel;
 
         public ShellViewModel(Hashtable userData)
         {
@@ -87,5 +84,19 @@ namespace LK_Teacher.Modules.Shell
                   }));
             }
         }
+
+        private RelayCommand _ProfileCommand;
+        public RelayCommand ProfileCommand
+        {
+            get
+            {
+                return _ProfileCommand ??
+                  (_ProfileCommand = new RelayCommand(obj =>
+                  {
+                      ContentModule = new ProfileView();
+                  }));
+            }
+        }
+
     }
 }

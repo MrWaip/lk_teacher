@@ -13,12 +13,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace LK_Teacher.Modules.Settings
+namespace LK_Teacher.Modules.View
 {
 
-    public partial class SettingsForm : Window
+    public partial class SettingsView : Window
     {
-        public SettingsForm()
+        public SettingsView()
         {
             InitializeComponent();
 

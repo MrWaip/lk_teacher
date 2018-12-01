@@ -1,23 +1,8 @@
-﻿using LK_Teacher.Modules.Utility;
-using LK_Teacher.Modules.Registration;
-using LK_Teacher.Modules.Settings;
-using LK_Teacher.Modules.Shell;
+﻿using LK_Teacher.Modules.Models;
+using LK_Teacher.Modules.Utility;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using LK_Teacher.Modules.Models;
 
 namespace LK_Teacher.Modules.View
 {
@@ -108,7 +93,7 @@ namespace LK_Teacher.Modules.View
 
         private void CreateNew_Click(object sender, RoutedEventArgs e)
         {
-            RegistrationForm registrationForm = new RegistrationForm();
+            RegistrationView registrationForm = new RegistrationView();
             registrationForm.ShowDialog();
         }
 
@@ -119,7 +104,7 @@ namespace LK_Teacher.Modules.View
 
         private void SettingBt_Click(object sender, RoutedEventArgs e)
         {
-            SettingsForm settingsForm = new SettingsForm();
+            SettingsView settingsForm = new SettingsView();
             settingsForm.ShowDialog();
         }
 
