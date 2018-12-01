@@ -16,7 +16,8 @@
         WindowStartupLocation="CenterScreen"
         Height="496.8"
         MaxHeight="496.8"
-        Closed="Window_Closed">
+        Closed="Window_Closed"
+        Closing="Window_Closing">
 
     <Window.DataContext>
         <mv:AuthorizationModelView />

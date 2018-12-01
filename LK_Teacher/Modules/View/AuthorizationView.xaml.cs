@@ -82,13 +82,7 @@ namespace LK_Teacher.Modules.View
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (_userData != null && _userData.Count != 0)
-            {
-                var sv = new ShellView(_userData);
-
-                Application.Current.MainWindow = sv;
-                Application.Current.MainWindow.Show();
-            }
+            
         }
 
         private void CreateNew_Click(object sender, RoutedEventArgs e)
@@ -108,6 +102,15 @@ namespace LK_Teacher.Modules.View
             settingsForm.ShowDialog();
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_userData != null && _userData.Count != 0)
+            {
+                var sv = new ShellView(_userData);
 
+                Application.Current.MainWindow = sv;
+                Application.Current.MainWindow.Show();
+            }
+        }
     }
 }

@@ -60,6 +60,12 @@ namespace LK_Teacher.Modules.ViewModel
             }
         }
 
-        public string Error => throw new NotImplementedException();
+        public string Error
+        {
+            get
+            {
+                return "";
+            }
+        }
     }
 }
