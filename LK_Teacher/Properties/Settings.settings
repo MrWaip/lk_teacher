@@ -18,7 +18,7 @@
       <Value Profile="(Default)">root</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1234</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ServerUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://lk-teacher.loc</Value>
@@ -30,7 +30,7 @@
       <Value Profile="(Default)">http://lk-teacher.loc/api</Value>
     </Setting>
     <Setting Name="ServerPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">3306</Value>
+      <Value Profile="(Default)">3307</Value>
     </Setting>
   </Settings>
 </SettingsFile>
